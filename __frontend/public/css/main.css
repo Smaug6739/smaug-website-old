@@ -1,0 +1,25 @@
+/*$light:#f8f9fa;*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #1b003d;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+::-webkit-scrollbar {
+  background-color: #262950;
+  height: 8px;
+  width: 14px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #df0b63;
+  border-radius: 10px;
+}
+
+/*# sourceMappingURL=main.css.map */
