@@ -4,6 +4,7 @@ import { Iroute } from '../../types';
 const AuthRouter: Router = Router();
 
 AuthRouter.post('/', AuthCtrl.auth)
+AuthRouter.get('/disconnection', AuthCtrl.disconnection)
 
 export const infos: Iroute = {
     route: "auth",

@@ -3,3 +3,5 @@ package-lock.json
 config.js
 dist
 config.ts
+public/uploads/projects/archives/*
+public/uploads/projects/images/*

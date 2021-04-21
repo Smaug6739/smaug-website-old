@@ -2,8 +2,8 @@
   <form>
     <fieldset>
       <legend>Connexion</legend>
-      <input type="text" placeholder="Username" />
-      <input type="text" placeholder="Password" />
+      <input id="form-username" type="text" placeholder="Username" />
+      <input id="form-password" type="text" placeholder="Password" />
       <button type="button" @click="connect">Connexion</button>
     </fieldset>
   </form>
@@ -13,16 +13,22 @@ export default {
   name: "login",
   methods: {
     async connect() {
-      await fetch("http://localhost:8081/login", {
-        method: "GET",
+      const content = JSON.stringify({
+        username: document.getElementById("form-username").value,
+        password: document.getElementById("form-password").value,
+      });
+      const responce = await fetch("http://localhost:8082/api/v1/auth", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: content,
         credentials: "include",
         withCredentials: true,
       });
-      await fetch("http://localhost:8081/test", {
-        method: "GET",
-        credentials: "include",
-        withCredentials: true,
-      });
+      const result = await responce.json();
+      if (result.result.auth) window.location.href = "/admin";
     },
   },
 };

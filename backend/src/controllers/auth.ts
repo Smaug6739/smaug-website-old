@@ -14,15 +14,24 @@ export function auth(req: IObject, res: IObject): void {
                 userId: result.id,
                 userPermissions: result.permissions
             }, config.secret)
-
+            res.cookie('user_token',`${token}`, { maxAge: 3600000, httpOnly: true,  })
+            res.cookie('user_id',`${result.id}`, { maxAge: 3600000, httpOnly: true,  })
+            res.cookie('user_auth',`true`, { maxAge: 3600000, httpOnly: false,  })
             res.status(200).json(checkAndChange({
                 auth: {
                     auth: true,
-                    token: token,
-                    client_id: result.id
+                    //token: token,
+                    //client_id: result.id
                 },
-                user: result
+                //user: result
             }))
         })
         .catch(error => res.json(checkAndChange(error)))
+}
+export function disconnection(req: IObject, res: IObject): void {
+
+    res.clearCookie('user_auth')
+    res.clearCookie('user_id')
+    res.clearCookie('user_token')
+    res.status(200).json(checkAndChange('success'))
 }

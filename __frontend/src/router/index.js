@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '@/store/index.js'
+//import store from '@/store/index.js'
 
 import Home from '../views/Home.vue';
 
 import publicRoutes from './public'
+import privateRoutes from './private'
 
 const routes = [
   {
@@ -22,7 +23,9 @@ const routes = [
       public: true
     }
   },
-].concat(publicRoutes)
+]
+  .concat(publicRoutes)
+  .concat(privateRoutes)
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,7 +33,22 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _, next) => {
-  const authenticated = store.state.user.authenticated
+  function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  const authenticated = getCookie('user_auth')
   const isPublic = to.matched.some(record => record.meta.public)
   if (!isPublic && !authenticated) {
     return next({
@@ -39,7 +57,7 @@ router.beforeEach((to, _, next) => {
     })
   }
   if (authenticated && !isPublic) {
-    return next('/')
+    return next()
   }
   next()
 })

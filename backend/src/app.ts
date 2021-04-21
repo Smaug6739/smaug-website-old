@@ -5,7 +5,7 @@ import * as express from 'express';
 
 import { checkAndChange, error } from './utils/functions'
 import { Iconfig, IObject } from './types';
-
+const morgan = require('morgan')('dev');
 
 export class App {
     private app;
@@ -36,14 +36,15 @@ export class App {
             res.setHeader('Access-Control-Allow-Credentials', 'true')
             next()
         })
+
+        this.app.use(morgan)
+    }
+    public start(): void {
+        this.handleMiddlewares();
+        this.handleRoutes();
         this.app.use(async function (err: Error, req: IObject, res: IObject, next: Function) {
             if (err.message.match('File too large')) return res.json(error('[ERROR_FILE_SIZE] File is too large.'))
         });
-
-    }
-    public start(): void {
-        this.handleRoutes();
-        this.handleMiddlewares();
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`)
         })
