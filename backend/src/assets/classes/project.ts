@@ -21,11 +21,6 @@ export default class ProjectClass {
 			})
 		})
 	}
-	public getProjects(page: string) {
-		return new Promise((resolve, reject) => {
-
-		})
-	}
 	public add(
 		name: string,
 		order: string,
@@ -120,7 +115,7 @@ export default class ProjectClass {
 					db.query('DELETE FROM projects WHERE id = ?', [id], (err, r) => {
 						if (err) return reject(new Error(err.message))
 						else resolve({
-							oldImage: result[0].images,
+							oldImage: result[0].image,
 							oldArchive: result[0].source_code
 						})
 					})
