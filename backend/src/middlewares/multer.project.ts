@@ -6,7 +6,7 @@ const multer = require('multer');
 let name;
 let extension;
 let fullName;
-const tailleMax = 5 * 1024 * 1024 // 5MB
+const tailleMax = 7 * 1024 * 1024 // 7MB
 const MIME_TYPES: IObject = {
 	'image/jpg': 'jpg',
 	'image/jpeg': 'jpg',
