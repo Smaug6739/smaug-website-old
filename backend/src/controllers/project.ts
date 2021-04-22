@@ -18,15 +18,16 @@ export function getProject(req: IObject, res: IObject): void {
 export function add(req: IObject, res: IObject): void {
 	let miniature = ''
 	let source_code = ''
-	if (req.files && req.files.miniature.length) miniature = req.files.miniature[0].filename
-	if (req.files && req.files.source.length) source_code = req.files.source[0].filename
+	if (req.files && req.files.miniature) miniature = req.files.miniature[0].filename
+	if (req.files && req.files.source) source_code = req.files.source[0].filename
+	console.log(2)
 	Projects.add(
 		req.body.name,
 		req.body.order,
 		req.body.version,
 		req.body.description,
 		req.body.content,
-		req.body.categorie,
+		req.body.category,
 		miniature,
 		req.body.github,
 		req.body.bugs,
@@ -36,6 +37,7 @@ export function add(req: IObject, res: IObject): void {
 	)
 		.then(() => res.status(201).json(success('success')))
 		.catch((err) => {
+			console.log(err)
 			if (miniature) unlink(join(__dirname, `../../public/uploads/projects/images/${miniature}`), (e) => { if (e) { console.log(e) } })
 			if (source_code) unlink(join(__dirname, `../../public/uploads/projects/archives/${source_code}`), (e) => { if (e) { console.log(e) } })
 			res.json(error(err.message))
@@ -46,8 +48,8 @@ export function add(req: IObject, res: IObject): void {
 export function update(req: IObject, res: IObject) {
 	let miniature = ''
 	let source_code = ''
-	if (req.files && req.files.miniature.length) miniature = req.files.miniature[0].filename
-	if (req.files && req.files.source.length) source_code = req.files.source[0].filename
+	if (req.files && req.files.miniature) miniature = req.files.miniature[0].filename
+	if (req.files && req.files.source) source_code = req.files.source[0].filename
 	Projects.put(
 		req.params.projectId,
 		req.body.name,
@@ -55,7 +57,7 @@ export function update(req: IObject, res: IObject) {
 		req.body.version,
 		req.body.description,
 		req.body.content,
-		req.body.categorie,
+		req.body.category,
 		miniature,
 		req.body.github,
 		req.body.bugs,

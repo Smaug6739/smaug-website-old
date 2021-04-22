@@ -34,9 +34,9 @@ export class App {
             res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.setHeader('Access-Control-Allow-Credentials', 'true')
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
             next()
         })
-
         this.app.use(morgan)
     }
     public start(): void {
@@ -44,6 +44,7 @@ export class App {
         this.handleRoutes();
         this.app.use(async function (err: Error, req: IObject, res: IObject, next: Function) {
             if (err.message.match('File too large')) return res.json(error('[ERROR_FILE_SIZE] File is too large.'))
+            else console.error(err)
         });
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`)

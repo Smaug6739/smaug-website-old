@@ -1,5 +1,5 @@
+const marked = require("marked");
 import db from '../../models/db';
-
 export default class ProjectClass {
 	public get(id: string) {
 		return new Promise((resolve, reject) => {
@@ -27,7 +27,7 @@ export default class ProjectClass {
 		version: string,
 		description: string,
 		content: string,
-		categorie?: string,
+		category?: string,
 		image?: string,
 		github?: string,
 		bugs?: string,
@@ -35,8 +35,9 @@ export default class ProjectClass {
 		license?: string,
 		source_code?: string
 	): Promise<boolean | Error> {
+		console.log('in class')
 		return new Promise((resolve, reject) => {
-			let categorieNumber = 0;
+			let categoryNumber = 0;
 			let orderNumber = 0;
 			if (!name) return reject(new Error('[MISSING_ARGUMENT] : name must be provided'))
 			if (order) orderNumber = parseInt(order)
@@ -44,14 +45,15 @@ export default class ProjectClass {
 			if (!description) return reject(new Error('[MISSING_ARGUMENT] : description must be provided'))
 			if (!content) return reject(new Error('[MISSING_ARGUMENT] : content must be provided'))
 			if (!image) image = 'default.png'
-			if (categorie) categorieNumber = parseInt(categorie)
+			if (category) categoryNumber = parseInt(category)
 			if (!github) github = ''
 			if (!bugs) bugs = ''
 			if (!link) link = ''
 			if (!license) license = ''
 			if (!source_code) source_code = '';
 			const date_insert = Date.now()
-			db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `categorie`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, content, categorieNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
+			const contentHTML = marked(content)
+			db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
 				if (err) return reject(new Error(err.message))
 				resolve(true)
 			})
@@ -64,7 +66,7 @@ export default class ProjectClass {
 		version: string,
 		description: string,
 		content: string,
-		categorie?: string,
+		category?: string,
 		image?: string,
 		github?: string,
 		bugs?: string,
@@ -78,23 +80,24 @@ export default class ProjectClass {
 				if (err) return reject(new Error(err.message))
 				else {
 					let orderNumber = 0;
-					let categorieNumber = 0;
+					let categoryNumber = 0;
 					if (!name) name = result[0].name
 					if (!order) orderNumber = result[0].order
 					if (order) orderNumber = parseInt(order)
 					if (!version) version = result[0].version
 					if (!description) description = result[0].description
 					if (!content) content = result[0].content
-					if (!categorie) categorieNumber = result[0].categorie
-					if (categorie) categorieNumber = parseInt(categorie)
+					if (!category) categoryNumber = result[0].category
+					if (category) categoryNumber = parseInt(category)
 					if (!image) image = result[0].image
 					if (!github) github = result[0].github
 					if (!bugs) bugs = result[0].bugs
 					if (!link) link = result[0].link
 					if (!license) license = result[0].license
 					if (!source_code) source_code = result[0].source_code
-					db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`categorie`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
-						[name, orderNumber, version, description, content, categorieNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
+					const contentHTML = marked(content)
+					db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
+						[name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
 							if (err) return reject(new Error(err.message))
 							resolve({
 								oldImage: result[0].image,
