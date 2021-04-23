@@ -1,115 +1,14 @@
 <template>
-  <div class="home">
-    <p>
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-      T<br />
-    </p>
-  </div>
+  <div class="home"></div>
+  <Projects />
 </template>
 
 <script>
-// @ is an alias to /src
-
+import Projects from "@/components/projects.component.vue";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Projects,
+  },
 };
 </script>

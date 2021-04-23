@@ -48,7 +48,7 @@
               cols="30"
               rows="10"
               placeholder="Contenu du projet"
-              v-text="result.name ? result.name : ''"
+              v-text="result.content ? result.content : ''"
             ></textarea>
           </li>
           <li>

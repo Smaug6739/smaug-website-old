@@ -31,7 +31,13 @@ export class App {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
         this.app.use(function (req: IObject, res: IObject, next: Function) {
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+            const acceptHosts = ['http://localhost:8080', 'http://192.168.0.30:8080']
+            const origin = req.headers.origin
+            if(acceptHosts.includes(origin)){
+                res.setHeader('Access-Control-Allow-Origin', origin)
+            }else{
+                console.log('Domain unauthorized: ' + origin)
+            }
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.setHeader('Access-Control-Allow-Credentials', 'true')
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -46,6 +52,8 @@ export class App {
             if (err.message.match('File too large')) return res.json(error('[ERROR_FILE_SIZE] File is too large.'))
             else console.error(err)
         });
+        this.app.use('/static', express.static(join(__dirname, '../public')));
+
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`)
         })

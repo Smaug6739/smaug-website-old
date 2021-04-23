@@ -53,6 +53,7 @@ export default class ProjectClass {
 			if (!source_code) source_code = '';
 			const date_insert = Date.now()
 			const contentHTML = marked(content)
+			if(isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 			db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
 				if (err) return reject(new Error(err.message))
 				resolve(true)
@@ -96,6 +97,7 @@ export default class ProjectClass {
 					if (!license) license = result[0].license
 					if (!source_code) source_code = result[0].source_code
 					const contentHTML = marked(content)
+					if(isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 					db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
 						[name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
 							if (err) return reject(new Error(err.message))

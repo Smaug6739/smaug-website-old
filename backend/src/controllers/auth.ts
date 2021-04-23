@@ -27,9 +27,9 @@ export function auth(req: IObject, res: IObject): void {
             }))
         })
         .catch(error => res.json(checkAndChange(error)))
+
 }
 export function disconnection(req: IObject, res: IObject): void {
-
     res.clearCookie('user_auth')
     res.clearCookie('user_id')
     res.clearCookie('user_token')
