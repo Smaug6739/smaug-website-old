@@ -64,12 +64,25 @@
       </ul>
       <button type="button" @click="sendProject">Envoyer</button>
     </fieldset>
+    <div v-if="alert.type && alert.message && alert.for === 'post'">
+      <Alert :type="alert.type"> {{ alert.message }} </Alert>
+    </div>
   </form>
 </template>
 
 <script>
+import Alert from "@/components/common/alert.component.vue";
+
 export default {
   name: "post page",
+  components: {
+    Alert,
+  },
+  data() {
+    return {
+      alert: {},
+    };
+  },
   methods: {
     async sendProject() {
       const body = new FormData();
@@ -87,12 +100,30 @@ export default {
       body.append("source", document.getElementById("source_code").files[0]);
       const options = {
         method: "POST",
-        body: body,
         credentials: "include",
         withCredentials: true,
+        body: body,
       };
-
-      await fetch("http://localhost:8082/api/v1/project", options);
+      const route = `${this.$store.state.host}api/v1/project`;
+      console.log(route);
+      const responce = await fetch(
+        `${this.$store.state.host}api/v1/project`,
+        options
+      );
+      const result = await responce.json();
+      if (result.status === "success") {
+        this.alert = {
+          for: "post",
+          type: "success",
+          message: "success",
+        };
+      } else {
+        this.alert = {
+          for: "post",
+          type: "danger",
+          message: `Error ${result.message ? result.message : ""}`,
+        };
+      }
     },
   },
 };

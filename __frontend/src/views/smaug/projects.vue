@@ -28,7 +28,9 @@ export default {
     return { result: [] };
   },
   async beforeMount() {
-    const responce = await fetch("http://localhost:8082/api/v1/project/all/1");
+    const responce = await fetch(
+      `${this.$store.state.host}api/v1/project/all/1`
+    );
     this.result = await responce.json();
   },
 };

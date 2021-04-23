@@ -108,70 +108,40 @@
         <button type="button" @click="updateProject">Update</button>
       </fieldset>
     </form>
-    <div v-if="alert.type && alert.message">
+    <div v-if="alert.type && alert.message && alert.for === 'update'">
       <Alert :type="alert.type"> {{ alert.message }} </Alert>
     </div>
+    <form>
+      <fieldset id="danger">
+        <legend>Danger</legend>
+        <ul>
+          <li>
+            <div id="danger-delete">
+              <input
+                type="checkbox"
+                class="danger-delete"
+                id="form-delete"
+                name="form-delete"
+                v-model="isCheck"
+              />
+              <label for="form-delete" class="danger-delete"
+                >Confirmation</label
+              >
+            </div>
+            <button type="button" @click="deleteProject">
+              Supprimer le projet
+            </button>
+          </li>
+        </ul>
+      </fieldset>
+      <div v-if="alert.type && alert.message && alert.for === 'delete'">
+        <Alert :type="alert.type"> {{ alert.message }} </Alert>
+      </div>
+    </form>
   </div>
 </template>
 
-<script>
-import Alert from "@/components/common/alert.component.vue";
-const projectId = window.location.href.split("/").reverse()[0];
-export default {
-  name: "post page",
-  async beforeMount() {
-    const responce = await fetch(
-      `http://localhost:8082/api/v1/project/${projectId}`
-    );
-    const result = await responce.json();
-    this.result = result.result;
-  },
-  data() {
-    return {
-      result: [],
-      alert: {},
-    };
-  },
-  components: {
-    Alert,
-  },
-  methods: {
-    async updateProject() {
-      const body = new FormData();
-      body.append("name", document.getElementById("title").value);
-      body.append("order", document.getElementById("order").value);
-      body.append("version", document.getElementById("version").value);
-      body.append("description", document.getElementById("description").value);
-      body.append("content", document.getElementById("content").value);
-      body.append("category", document.getElementById("category").value);
-      body.append("miniature", document.getElementById("miniature").files[0]);
-      body.append("github", document.getElementById("github").value);
-      body.append("bugs", document.getElementById("bugs").value);
-      body.append("link", document.getElementById("link").value);
-      body.append("license", document.getElementById("license").value);
-      body.append("source", document.getElementById("source_code").files[0]);
-      const options = {
-        method: "PATCH",
-        body: body,
-        credentials: "include",
-        withCredentials: true,
-      };
-      const responce = await fetch(
-        `http://localhost:8082/api/v1/project/${projectId}`,
-        options
-      );
-      const result = await responce.json();
-      if (result.status && result.status === "success")
-        this.alert = { type: "success", message: "success" };
-      else
-        this.alert = {
-          type: "danger",
-          message: `Error ${result.message ? result.message : ""}`,
-        };
-    },
-  },
-};
-</script>
+
 <style scoped lang="scss">
 @import "../../../public/scss/theme-variables";
 form {
@@ -202,7 +172,6 @@ label {
 }
 input {
   display: block;
-  width: 98%;
   padding: 0.3rem;
   font-size: 1rem;
   font-weight: 400;
@@ -211,8 +180,105 @@ input {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  appearance: none;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.danger-delete {
+  display: inline-block;
+  text-align: end;
+}
 </style>
+
+
+
+
+
+
+<script>
+import Alert from "@/components/common/alert.component.vue";
+const projectId = window.location.href.split("/").reverse()[0];
+export default {
+  name: "post page",
+  async beforeMount() {
+    const responce = await fetch(
+      `${this.$store.state.host}api/v1/project/${projectId}`
+    );
+    const result = await responce.json();
+    this.result = result.result;
+  },
+  data() {
+    return {
+      result: [],
+      alert: {},
+      isCheck: false,
+    };
+  },
+  components: {
+    Alert,
+  },
+  methods: {
+    async updateProject() {
+      const body = new FormData();
+      body.append("name", document.getElementById("title").value);
+      body.append("order", document.getElementById("order").value);
+      body.append("version", document.getElementById("version").value);
+      body.append("description", document.getElementById("description").value);
+      body.append("content", document.getElementById("content").value);
+      body.append("category", document.getElementById("category").value);
+      body.append("miniature", document.getElementById("miniature").files[0]);
+      body.append("github", document.getElementById("github").value);
+      body.append("bugs", document.getElementById("bugs").value);
+      body.append("link", document.getElementById("link").value);
+      body.append("license", document.getElementById("license").value);
+      body.append("source", document.getElementById("source_code").files[0]);
+      const options = {
+        method: "PATCH",
+        body: body,
+        credentials: "include",
+        withCredentials: true,
+      };
+      const responce = await fetch(
+        `${this.$store.state.host}api/v1/project/${projectId}`,
+        options
+      );
+      const result = await responce.json();
+      if (result.status && result.status === "success")
+        this.alert = { for: "update", type: "success", message: "success" };
+      else
+        this.alert = {
+          type: "danger",
+          message: `Error ${result.message ? result.message : ""}`,
+          for: "update",
+        };
+    },
+    async deleteProject() {
+      if (this.isCheck) {
+        const responce = await fetch(
+          `${this.$store.state.host}api/v1/project/${projectId}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+          }
+        );
+        const result = await responce.json();
+        if (result && result.result === "success") {
+          this.alert = {
+            for: "delete",
+            type: "success",
+            message: `Project deleted`,
+          };
+          setTimeout(() => {
+            window.location.href = "/admin";
+          }, 3000);
+        } else {
+          this.alert = {
+            for: "delete",
+            type: "danger",
+            message: `Error`,
+          };
+        }
+      }
+    },
+  },
+};
+</script>
