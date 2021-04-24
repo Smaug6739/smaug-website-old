@@ -21,8 +21,12 @@
           >
         </li>
         <li>
-          <router-link to="/about" class="nav-links" @click="close"
-            >About</router-link
+          <a
+            href="https://github.com/SmaugDev"
+            target="__blank"
+            class="nav-links"
+            @click="close"
+            >Github</a
           >
         </li>
       </ul>
@@ -42,8 +46,11 @@
   justify-content: center;
   flex-direction: column;
 }
-.img img {
+.img {
   max-width: 5%;
+}
+.img img {
+  max-width: 100%;
 }
 .bar {
   display: block;

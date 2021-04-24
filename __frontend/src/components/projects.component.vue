@@ -48,23 +48,38 @@ export default {
     return {
       projects: [],
       host: this.$store.state.host,
+      pageAPI: 1,
     };
   },
   props: {
     page: {
-      type: String,
-      required: false,
-      default: "1",
+      type: Number,
+      default: 1,
+    },
+  },
+  watch: {
+    page: function (newVal) {
+      this.pageAPI = newVal;
+      this.fetchAPI();
     },
   },
   beforeMount() {
-    fetch(`${this.$store.state.host}api/v1/project/all/${this.page}`).then(
-      (responce) => {
-        responce.json().then((result) => {
-          this.projects = result.result;
-        });
-      }
-    );
+    if (this.page) this.pageAPI = this.page;
+    this.fetchAPI();
+  },
+  methods: {
+    fetchAPI() {
+      console.log(
+        `${this.$store.state.host}api/v1/project/all/${this.pageAPI}`
+      );
+      fetch(`${this.$store.state.host}api/v1/project/all/${this.pageAPI}`).then(
+        (responce) => {
+          responce.json().then((result) => {
+            this.projects = result.result;
+          });
+        }
+      );
+    },
   },
   components: {
     Btn,

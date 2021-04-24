@@ -11,6 +11,10 @@
 <script>
 export default {
   name: "login",
+  beforeMount() {
+    if (document.cookie && document.cookie.includes("user_auth"))
+      this.$router.push("/admin/projects");
+  },
   methods: {
     async connect() {
       const content = JSON.stringify({
@@ -28,7 +32,7 @@ export default {
         withCredentials: true,
       });
       const result = await responce.json();
-      if (result.result.auth) window.location.href = "/admin";
+      if (result.result.auth) window.location.href = "/admin/projects";
     },
   },
 };

@@ -19,7 +19,7 @@
         <h3>Infos :</h3>
 
         <div v-if="project.version">
-          <p class="key">Last version:</p>
+          <p class="key">Version:</p>
           <p>{{ project.version }}</p>
         </div>
         <div>
@@ -119,6 +119,8 @@ export default {
   text-align: start;
   line-height: 30px;
   .content {
+    margin-bottom: 15px;
+
     * {
       max-width: 100%;
       white-space: initial;

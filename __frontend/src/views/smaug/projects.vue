@@ -1,4 +1,8 @@
 <template>
+  <strong>
+    This is an admin page.
+    <a href="#" @click="disconnect">Disconnection</a>
+  </strong>
   <div v-if="result && result.result">
     <table>
       <thead>
@@ -32,6 +36,17 @@ export default {
       `${this.$store.state.host}api/v1/project/all/1`
     );
     this.result = await responce.json();
+  },
+  methods: {
+    async disconnect() {
+      await fetch(`${this.$store.state.host}api/v1/auth/disconnection`, {
+        method: "GET",
+        credentials: "include",
+        withCredentials: true,
+      }).then(() => {
+        window.location.href = "/";
+      });
+    },
   },
 };
 </script>

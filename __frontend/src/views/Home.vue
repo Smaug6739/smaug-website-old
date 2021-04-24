@@ -1,10 +1,10 @@
 <template>
   <div id="home">
     <div id="img-bi"></div>
-    <h1>Smaug website</h1>
+    <h1 id="smaug">Smaug website</h1>
     <p>
       <a href="https://discord.com/users/611468402263064577" target="__blank">
-        <Button color="grey" size="large">
+        <Button color="#545aa7" size="large">
           <img
             src="@/assets/discord.svg"
             alt="discord"
@@ -15,7 +15,7 @@
         </Button>
       </a>
       <a href="https://github.com/SmaugDev" target="__blank">
-        <Button color="grey" size="large">
+        <Button color="#545aa7" size="large">
           <img
             src="@/assets/github.svg"
             alt="github"
@@ -26,7 +26,7 @@
         </Button>
       </a>
       <a href="mailto:raphael.veauville@gmail.com" target="__blank">
-        <Button color="grey" size="large">
+        <Button color="#545aa7" size="large">
           <img
             src="@/assets/email.svg"
             alt="github"
@@ -85,7 +85,10 @@ export default {
 #home {
   background-image: url("../assets/background.png");
   background-repeat: no-repeat;
-  height: 50vh;
+  height: 40vh;
+  #smaug {
+    text-align: center;
+  }
   h1 {
     padding-top: 10px;
   }

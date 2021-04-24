@@ -1,15 +1,9 @@
-import Admin from '../views/smaug/admin.vue';
 import Projects from '../views/smaug/projects.vue';
 import PostProject from '../views/smaug/post.project.vue';
 import ViewProject from '../views/smaug/view.project.vue';
 
 const routes = [
 
-	{
-		path: '/admin',
-		name: 'Admin',
-		component: Admin
-	},
 	{
 		path: '/admin/projects',
 		name: 'AdminProjects',

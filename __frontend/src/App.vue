@@ -22,8 +22,6 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  margin-bottom: 1%;
   display: flex;
   flex-direction: column;
   height: 100vh;

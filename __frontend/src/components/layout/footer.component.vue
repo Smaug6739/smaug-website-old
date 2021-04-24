@@ -2,71 +2,51 @@
   <footer>
     <div class="contenu-footer">
       <div class="footer-bloc footer-services">
+        <ul class="liste-services">
+          <router-link to="/smaug/login"
+            ><img src="@/assets/smaug.webp" alt="smaug"
+          /></router-link>
+        </ul>
+      </div>
+      <div class="footer-bloc footer-services">
         <h3 class="footer-subtitle">Menu</h3>
         <ul class="liste-services">
-          <li><a href="/">Accueil</a></li>
-          <li><a href="https://discord.gg/RjhsJXd">Discord</a></li>
-          <li><a href="/request/partners">Devenir partenaire</a></li>
-          <li><a href="/request/jobs">Devenir modo</a></li>
-          <li><a href="/infos">A propos</a></li>
+          <li><router-link to="/">Home</router-link></li>
+          <li><router-link to="/projects/1">Projects</router-link></li>
+          <li><router-link to="/about">About</router-link></li>
         </ul>
       </div>
       <div class="footer-bloc footer-contact">
-        <h3 class="footer-subtitle">Restons en contact</h3>
+        <h3 class="footer-subtitle">Contact</h3>
         <ul class="liste-contact">
           <li><a href="mailto:raphael.veauville@gmail.com">Mail</a></li>
-          <li><a href="/request">Formulaire</a></li>
-          <li><a href="https://discord.gg/RjhsJXd">Discord</a></li>
-        </ul>
-      </div>
-      <div class="footer-bloc footer-connexion">
-        <h3 class="footer-subtitle">Connexion :</h3>
-        <ul class="liste-connexion">
-          <li><a href="/member/register">S'inscrire</a></li>
-          <li><a href="/member/login">Se connecter</a></li>
+          <li>
+            <a
+              href="https://discord.com/users/611468402263064577"
+              target="__blank"
+              >Discord</a
+            >
+          </li>
         </ul>
       </div>
       <div class="footer-bloc footer-medias">
-        <h3 class="footer-subtitle">Nos réseaux</h3>
+        <h3 class="footer-subtitle">Reseaux</h3>
         <ul class="liste-medias">
           <li>
-            <a href="https://twitter.com/FGamingFamily?s=09"
-              ><img
-                src="/static/images/medias/twitter.svg"
-                id="footer-img"
-              />Twitter</a
+            <a href="https://github.com/SmaugDev" target="__blank"
+              ><img src="@/assets/github.svg" id="footer-img" />Github</a
             >
           </li>
           <li>
-            <a href="https://www.facebook.com/FrenchGamingFamily"
-              ><img
-                src="/static/images/medias/facebook.svg"
-                id="footer-img"
-              />Facebook</a
+            <a
+              href="https://discord.com/users/611468402263064577"
+              target="__blank"
+              ><img src="@/assets/discord.svg" id="footer-img" />Discord</a
             >
           </li>
           <li>
-            <a href="https://discord.gg/RjhsJXd"
-              ><img
-                src="/static/images/medias/discord.svg"
-                id="footer-img"
-              />Discord</a
-            >
-          </li>
-          <li>
-            <a href="https://www.instagram.com/french_gaming_family"
-              ><img
-                src="/static/images/medias/instagram.svg"
-                id="footer-img"
-              />Instagram</a
-            >
-          </li>
-          <li>
-            <a href="https://www.youtube.com/channel/UCAKPauxXArnTWn9WuYldY-Q"
-              ><img
-                src="/static/images/medias/youtube.svg"
-                id="footer-img"
-              />Youtube</a
+            <a href="https://www.instagram.com/raphael_vea/" target="__blank"
+              ><img src="@/assets/instagram.svg" id="footer-img" />Instagram</a
             >
           </li>
         </ul>
@@ -74,21 +54,19 @@
     </div>
     <div class="footer-bottom">
       <p class="copy">
-        <span class="fgf-footer"> &copy;2018-2021 FRENCH-GAMING-FAMILY</span
-        ><br />
-        <a href="/privacy">Conditions générales d'utilisation</a> |
-        <a href="/terms">Politique de confidentialité</a>
+        <span> &copy;2019-2021 Smaug - Website</span>
       </p>
     </div>
   </footer>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../../../public/scss/theme-variables";
 footer {
   flex-shrink: 0;
   border-top: 1px dashed #000;
   width: 100%;
-  background: var(--container-color);
+  background: $background-element;
   font-weight: 600;
 }
 .contenu-footer {
@@ -102,6 +80,7 @@ footer {
 }
 .copy {
   text-align: center;
+  margin-bottom: 10px;
 }
 .footer-bloc {
   width: 25%;
@@ -155,9 +134,6 @@ footer {
 }
 .footer-subtitle {
   font-weight: 600;
-  color: var(--white);
-}
-.fgf-footer {
   color: var(--white);
 }
 @media screen and (max-width: 1200px) {

@@ -1,7 +1,11 @@
 <template>
   <div id="projects">
-    <h3>Projects :</h3>
-    <Projects page="1" />
+    <h1>Projects :</h1>
+    <Projects :page="page" />
+  </div>
+  <div id="btns">
+    <button type="button" @click="previous" v-text="'< Previous'"></button>
+    <button type="button" @click="next">Next ></button>
   </div>
 </template>
 
@@ -12,6 +16,19 @@ export default {
   components: {
     Projects,
   },
+  data() {
+    return {
+      page: 1,
+    };
+  },
+  methods: {
+    next() {
+      this.page++;
+    },
+    previous() {
+      this.page--;
+    },
+  },
 };
 </script>
 
@@ -20,8 +37,19 @@ export default {
 
 #projects {
   margin-top: 30px;
-  h3 {
-    font-size: 1.5rem;
+  h1 {
+    padding: 15px;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+}
+#btns {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  button {
+    margin: 5px;
   }
 }
 </style>
