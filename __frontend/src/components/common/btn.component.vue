@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../../../public/scss/theme-variables";
 button {
   display: flex;
@@ -45,10 +45,17 @@ button {
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   background-color: $pink;
 }
-.normal {
+.auto {
   width: auto;
 }
-.big {
+.normal {
   width: 110px;
+}
+.large {
+  width: 150px;
+}
+.logo {
+  width: 24px;
+  height: 24px;
 }
 </style>

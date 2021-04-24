@@ -198,7 +198,7 @@ input {
 import Alert from "@/components/common/alert.component.vue";
 const projectId = window.location.href.split("/").reverse()[0];
 export default {
-  name: "post page",
+  name: "viewpage",
   async beforeMount() {
     const responce = await fetch(
       `${this.$store.state.host}api/v1/project/${projectId}`

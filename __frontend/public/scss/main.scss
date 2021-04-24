@@ -11,6 +11,10 @@ a{
 a:hover{
 	color:$black;
 }
+::selection{
+	color: #fff;
+	background: black;
+}
 body{
 	background-color: $background ;
 	color:$light;

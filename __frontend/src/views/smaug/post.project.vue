@@ -74,7 +74,7 @@
 import Alert from "@/components/common/alert.component.vue";
 
 export default {
-  name: "post page",
+  name: "postpage",
   components: {
     Alert,
   },

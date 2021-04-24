@@ -12,7 +12,7 @@ const routes = [
 	},
 	{
 		path: '/admin/projects',
-		name: 'Projects',
+		name: 'AdminProjects',
 		component: Projects
 	},
 	{

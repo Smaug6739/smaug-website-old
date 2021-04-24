@@ -15,8 +15,8 @@
         <div class="footer">
           <div class="btns">
             <span v-if="project.github">
-              <a :href="project.github">
-                <Btn color="rgb(84, 90, 167)" size="big" class="btn1">
+              <a :href="project.github" target="__blank">
+                <Btn color="rgb(84, 90, 167)" size="normal" class="btn1">
                   <img
                     src="@/assets/github.svg"
                     alt="github"
@@ -27,11 +27,11 @@
               </a>
             </span>
             <span v-if="project.id">
-              <a :href="'/project/' + project.id">
-                <Btn size="big" class="btn2" style="text-align: center">
+              <router-link :to="'/project/' + project.id">
+                <Btn size="normal" class="btn2" style="text-align: center">
                   View
                 </Btn>
-              </a>
+              </router-link>
             </span>
           </div>
         </div>
@@ -50,12 +50,21 @@ export default {
       host: this.$store.state.host,
     };
   },
+  props: {
+    page: {
+      type: String,
+      required: false,
+      default: "1",
+    },
+  },
   beforeMount() {
-    fetch(`${this.$store.state.host}api/v1/project/all/1`).then((responce) => {
-      responce.json().then((result) => {
-        this.projects = result.result;
-      });
-    });
+    fetch(`${this.$store.state.host}api/v1/project/all/${this.page}`).then(
+      (responce) => {
+        responce.json().then((result) => {
+          this.projects = result.result;
+        });
+      }
+    );
   },
   components: {
     Btn,
@@ -110,5 +119,11 @@ li {
   position: absolute;
   bottom: 15px;
   right: 15px;
+}
+@media screen and (max-width: 700px) {
+  li {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 import Login from '../views/smaug/login.vue';
 import Project from '../views/view.project.vue';
+import Projects from '../views/projects.vue';
 
 const routes = [
 
@@ -7,6 +8,11 @@ const routes = [
 		path: '/smaug/login',
 		name: 'Smaug Login',
 		component: Login
+	},
+	{
+		path: '/projects/:page',
+		name: 'Projects',
+		component: Projects
 	},
 	{
 		path: '/project/:projectId',

@@ -43,6 +43,11 @@
           <p class="key">Link:</p>
           <a :href="project.link">Click here</a>
         </div>
+        <h3 v-if="project.source_code">Code source</h3>
+        <div v-if="project.source_code">
+          <p class="key">Code source:</p>
+          <a :href="source_code">Click here</a>
+        </div>
       </div>
     </div>
   </div>
@@ -56,6 +61,7 @@ export default {
       project: {},
       host: this.$store.state.host,
       date: "",
+      source_code: "",
     };
   },
   beforeMount() {
@@ -85,6 +91,9 @@ export default {
             const day = date.getDate();
             this.date = `${day}/${month}/${year}`;
           }
+          if (result.result && result.result.source_code) {
+            this.source_code = `${this.$store.state.host}api/v1/download/archive/${result.result.source_code}`;
+          }
         });
       }
     );
@@ -112,6 +121,7 @@ export default {
   .content {
     * {
       max-width: 100%;
+      white-space: initial;
     }
     table {
       display: inline-block;
