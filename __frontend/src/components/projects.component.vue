@@ -69,9 +69,6 @@ export default {
   },
   methods: {
     fetchAPI() {
-      console.log(
-        `${this.$store.state.host}api/v1/project/all/${this.pageAPI}`
-      );
       fetch(`${this.$store.state.host}api/v1/project/all/${this.pageAPI}`).then(
         (responce) => {
           responce.json().then((result) => {
