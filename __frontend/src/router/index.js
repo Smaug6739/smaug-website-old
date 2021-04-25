@@ -33,7 +33,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, _, next) => {
-  function getCookie(cname) {
+  /*function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -47,8 +47,9 @@ router.beforeEach((to, _, next) => {
       }
     }
     return "";
-  }
-  const authenticated = getCookie('user_auth')
+    
+  }*/
+  const authenticated = document.cookie.split('=').includes('user_auth') //getCookie('user_auth')
   const isPublic = to.matched.some(record => record.meta.public)
   if (!isPublic && !authenticated) {
     console.log('No connected');

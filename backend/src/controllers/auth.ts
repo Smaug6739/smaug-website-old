@@ -14,9 +14,9 @@ export function auth(req: IObject, res: IObject): void {
                 userId: result.id,
                 userPermissions: result.permissions
             }, config.secret)
-            res.cookie('user_token', `${token}`, { maxAge: 3600000, httpOnly: true, secure: true })
-            res.cookie('user_id', `${result.id}`, { maxAge: 3600000, httpOnly: true, secure: true })
-            res.cookie('user_auth', `true`, { maxAge: 3600000, httpOnly: false, secure: true })
+            res.cookie('user_token', `${token}`, { maxAge: 3600000, httpOnly: true, secure: process.env.NODE_ENV === 'production' ? true : false })
+            res.cookie('user_id', `${result.id}`, { maxAge: 3600000, httpOnly: true, secure: process.env.NODE_ENV === 'production' ? true : false })
+            res.cookie('user_auth', `true`, { maxAge: 3600000, httpOnly: false, secure: process.env.NODE_ENV === 'production' ? true : false })
             res.status(200).json(checkAndChange({
                 auth: {
                     auth: true,
