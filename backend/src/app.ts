@@ -33,8 +33,6 @@ export class App {
             const origin = req.headers.origin
             console.log(process.env);
             console.log(process.env.ALLOWED_DOMAINS);
-
-
             if (process.env.ALLOWED_DOMAINS!.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin)
             } else {
