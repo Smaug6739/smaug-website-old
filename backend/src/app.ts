@@ -31,11 +31,11 @@ export class App {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
         this.app.use(function (req: IObject, res: IObject, next: Function) {
-            const acceptHosts = ['http://localhost:8080', 'http://192.168.0.30:8080', 'http://192.168.0.30:5000']
+            const acceptHosts = ['http://192.168.0.30:8080', 'http://192.168.0.30:5000', 'http://161.97.81.3:5000']
             const origin = req.headers.origin
-            if(acceptHosts.includes(origin)){
+            if (acceptHosts.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin)
-            }else{
+            } else {
                 console.log('Domain unauthorized: ' + origin)
             }
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
