@@ -15,6 +15,7 @@ export class App {
         this.port = config.port;
         this.config = config
         console.log('Starting...')
+        console.log(process.env.NODE_ENV);
     }
     private handleRoutes(): void {
         readdirSync(join(__dirname, 'routes')).forEach(dir => {
