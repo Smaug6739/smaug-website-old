@@ -1,9 +1,11 @@
 <template>
-  <main role="main" style="flex: 1 0 auto">
-    <NavBar />
-    <router-view />
-  </main>
-  <Footer />
+  <div id="app">
+    <main role="main" style="flex: 1 0 auto">
+      <NavBar />
+      <router-view />
+    </main>
+    <Footer />
+  </div>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

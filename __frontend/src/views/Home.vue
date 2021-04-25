@@ -1,70 +1,72 @@
 <template>
-  <div id="home">
-    <div id="img-bi"></div>
-    <h1 id="smaug">Smaug website</h1>
-    <p>
-      <a href="https://discord.com/users/611468402263064577" target="__blank">
-        <Button color="#545aa7" size="large">
-          <img
-            src="@/assets/discord.svg"
-            alt="discord"
-            style="margin-right: 5px"
-            class="logo"
-          />
-          Discord
-        </Button>
-      </a>
-      <a href="https://github.com/SmaugDev" target="__blank">
-        <Button color="#545aa7" size="large">
-          <img
-            src="@/assets/github.svg"
-            alt="github"
-            style="margin-right: 5px"
-            class="logo"
-          />
-          Github
-        </Button>
-      </a>
-      <a href="mailto:raphael.veauville@gmail.com" target="__blank">
-        <Button color="#545aa7" size="large">
-          <img
-            src="@/assets/email.svg"
-            alt="github"
-            style="margin-right: 5px"
-            class="logo"
-          />
-          Email
-        </Button>
-      </a>
-    </p>
-    <p>
-      <img
-        src="https://img.shields.io/static/v1?label=Uses&message=HTML&color=green"
-        alt=""
-        class="badge"
-      />
-      <img
-        src="https://img.shields.io/static/v1?label=Uses&message=CSS&color=green"
-        alt=""
-        class="badge"
-      />
-      <img
-        src="https://img.shields.io/static/v1?label=Uses&message=Javascript&color=green"
-        alt=""
-        class="badge"
-      />
-      <img
-        src="https://img.shields.io/static/v1?label=Uses&message=Node.js&color=green"
-        alt=""
-        class="badge"
-      />
-    </p>
-  </div>
-  <div id="projects">
-    <div class="separation">
-      <h3>Projects :</h3>
+  <div>
+    <div id="home">
+      <div id="img-bi"></div>
+      <h1 id="smaug">Smaug website</h1>
+      <p>
+        <a href="https://discord.com/users/611468402263064577" target="__blank">
+          <Button color="#545aa7" size="large">
+            <img
+              src="@/assets/discord.svg"
+              alt="discord"
+              style="margin-right: 5px"
+              class="logo"
+            />
+            Discord
+          </Button>
+        </a>
+        <a href="https://github.com/SmaugDev" target="__blank">
+          <Button color="#545aa7" size="large">
+            <img
+              src="@/assets/github.svg"
+              alt="github"
+              style="margin-right: 5px"
+              class="logo"
+            />
+            Github
+          </Button>
+        </a>
+        <a href="mailto:raphael.veauville@gmail.com" target="__blank">
+          <Button color="#545aa7" size="large">
+            <img
+              src="@/assets/email.svg"
+              alt="github"
+              style="margin-right: 5px"
+              class="logo"
+            />
+            Email
+          </Button>
+        </a>
+      </p>
+      <p>
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=HTML&color=green"
+          alt=""
+          class="badge"
+        />
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=CSS&color=green"
+          alt=""
+          class="badge"
+        />
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=Javascript&color=green"
+          alt=""
+          class="badge"
+        />
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=Node.js&color=green"
+          alt=""
+          class="badge"
+        />
+      </p>
     </div>
-    <Projects />
+    <div id="projects">
+      <div class="separation">
+        <h3>Projects :</h3>
+      </div>
+      <Projects />
+    </div>
   </div>
 </template>
 

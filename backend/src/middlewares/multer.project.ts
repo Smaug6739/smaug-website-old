@@ -12,6 +12,7 @@ const MIME_TYPES: IObject = {
 	'image/jpeg': 'jpg',
 	'image/png': 'png',
 	'image/gif': 'gif',
+	'image/webp': 'webp',
 	'application/zip': 'zip'
 };
 const MIME_TYPES_IMAGE: IObject = {
@@ -19,6 +20,7 @@ const MIME_TYPES_IMAGE: IObject = {
 	'image/jpeg': 'jpg',
 	'image/png': 'png',
 	'image/gif': 'gif',
+	'image/webp': 'webp',
 };
 const MIME_TYPES_ARCHIVE: IObject = {
 	'application/zip': 'zip'

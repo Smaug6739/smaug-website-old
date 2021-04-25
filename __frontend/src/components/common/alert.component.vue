@@ -1,11 +1,14 @@
 <template>
-  <div id="alert" v-bind:class="type || 'primary'">
-    <slot> </slot>
+  <div>
+    <div id="alert" v-bind:class="type || 'primary'">
+      <slot> </slot>
+    </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 #alert {
+  margin: 5px;
   position: relative;
   padding: 1rem 1rem;
   margin-bottom: 1rem;
@@ -13,6 +16,10 @@
   border-radius: 0.25rem;
   max-width: 80%;
   margin: auto;
+  font-size: 1.1rem;
+  a {
+    font-weight: 700;
+  }
 }
 .primary {
   color: #41464b;
@@ -20,9 +27,9 @@
   border-color: #d3d6d8;
 }
 .success {
-  color: #155724;
-  background-color: #308644;
-  border-color: #c3e6cb;
+  background: #d1e7dd;
+  color: #0f5132;
+  border-color: #badbcc;
 }
 .danger {
   color: #842029;

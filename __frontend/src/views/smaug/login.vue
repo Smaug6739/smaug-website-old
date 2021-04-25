@@ -13,7 +13,7 @@ export default {
   name: "login",
   beforeMount() {
     if (document.cookie && document.cookie.includes("user_auth"))
-      this.$router.push("/admin/projects");
+      this.$router.push("/admin");
   },
   methods: {
     async connect() {
@@ -32,7 +32,7 @@ export default {
         withCredentials: true,
       });
       const result = await responce.json();
-      if (result.result.auth) window.location.href = "/admin/projects";
+      if (result.result.auth) this.$router.push("/admin");
     },
   },
 };

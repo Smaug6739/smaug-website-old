@@ -105,6 +105,8 @@ li {
   display: flex;
   flex-direction: column;
   position: relative;
+  margin: 40px;
+  margin-bottom: 100px;
 }
 
 .top > img {

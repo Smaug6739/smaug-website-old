@@ -104,8 +104,6 @@ export default {
         withCredentials: true,
         body: body,
       };
-      const route = `${this.$store.state.host}api/v1/project`;
-      console.log(route);
       const responce = await fetch(
         `${this.$store.state.host}api/v1/project`,
         options
@@ -115,8 +113,11 @@ export default {
         this.alert = {
           for: "post",
           type: "success",
-          message: "success",
+          message: "Success",
         };
+        setTimeout(() => {
+          this.$router.push("/admin");
+        }, 3000);
       } else {
         this.alert = {
           for: "post",

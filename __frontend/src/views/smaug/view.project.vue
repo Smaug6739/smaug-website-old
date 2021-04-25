@@ -243,7 +243,7 @@ export default {
       );
       const result = await responce.json();
       if (result.status && result.status === "success")
-        this.alert = { for: "update", type: "success", message: "success" };
+        this.alert = { for: "update", type: "success", message: "Success" };
       else
         this.alert = {
           type: "danger",
@@ -268,7 +268,7 @@ export default {
             message: `Project deleted`,
           };
           setTimeout(() => {
-            window.location.href = "/admin";
+            this.$router.push("/admin");
           }, 3000);
         } else {
           this.alert = {

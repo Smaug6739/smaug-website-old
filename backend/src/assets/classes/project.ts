@@ -1,5 +1,21 @@
 const marked = require("marked");
 import db from '../../models/db';
+marked.setOptions({
+	renderer: new marked.Renderer(),
+	highlight: function (code: string, lang: string) {
+		const hljs = require('highlight.js');
+		const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+		return hljs.highlight(code, { language }).value;
+	},
+	pedantic: false,
+	gfm: true,
+	breaks: false,
+	sanitize: false,
+	smartLists: true,
+	smartypants: false,
+	xhtml: false
+});
+
 export default class ProjectClass {
 	public get(id: string) {
 		return new Promise((resolve, reject) => {
@@ -15,7 +31,7 @@ export default class ProjectClass {
 			if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
 			const pageNumber = parseInt(page)
 			const skip = (pageNumber * 9) - 9
-			db.query('SELECT * FROM projects LIMIT 9 OFFSET ?', [skip], (err, result) => {
+			db.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
 				if (err) return reject(new Error(err.message))
 				resolve(result)
 			})
@@ -53,7 +69,7 @@ export default class ProjectClass {
 			if (!source_code) source_code = '';
 			const date_insert = Date.now()
 			const contentHTML = marked(content)
-			if(isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
+			if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 			db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
 				if (err) return reject(new Error(err.message))
 				resolve(true)
@@ -97,7 +113,7 @@ export default class ProjectClass {
 					if (!license) license = result[0].license
 					if (!source_code) source_code = result[0].source_code
 					const contentHTML = marked(content)
-					if(isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
+					if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 					db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
 						[name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
 							if (err) return reject(new Error(err.message))

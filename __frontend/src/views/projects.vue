@@ -1,11 +1,13 @@
 <template>
-  <div id="projects">
-    <h1>Projects :</h1>
-    <Projects :page="page" />
-  </div>
-  <div id="btns">
-    <button type="button" @click="previous" v-text="'< Previous'"></button>
-    <button type="button" @click="next">Next ></button>
+  <div>
+    <div id="projects">
+      <h1>Projects :</h1>
+      <Projects :page="page" />
+    </div>
+    <div id="btns">
+      <button type="button" @click="previous" v-text="'< Previous'"></button>
+      <button type="button" @click="next">Next ></button>
+    </div>
   </div>
 </template>
 

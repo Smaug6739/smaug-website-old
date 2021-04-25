@@ -17,6 +17,7 @@ export default {
     size: {
       type: String,
     },
+    theme: String,
   },
 };
 </script>
