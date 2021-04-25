@@ -37,11 +37,15 @@
         </div>
       </li>
     </ul>
+    <div v-else>
+      <Loader msg="Loading..." />
+    </div>
   </div>
 </template>
 
 <script>
 import Btn from "@/components/common/btn.component.vue";
+import Loader from "@/components/common/loader.component.vue";
 export default {
   name: "Projects",
   data() {
@@ -80,6 +84,7 @@ export default {
   },
   components: {
     Btn,
+    Loader,
   },
 };
 </script>
