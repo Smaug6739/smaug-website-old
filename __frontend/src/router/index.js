@@ -58,7 +58,6 @@ router.beforeEach((to, _, next) => {
     })
   }
   if (authenticated && !isPublic) {
-    console.log('connected');
     return next()
   }
   next()
