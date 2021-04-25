@@ -6,7 +6,6 @@ import * as express from 'express';
 import { checkAndChange, error } from './utils/functions'
 import { Iconfig, IObject } from './types';
 const morgan = require('morgan')('dev');
-
 export class App {
     private app;
     public port: number;
@@ -31,9 +30,8 @@ export class App {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
         this.app.use(function (req: IObject, res: IObject, next: Function) {
-            const acceptHosts = ['http://192.168.0.30:8080', 'http://192.168.0.30:5000', 'http://161.97.81.3:5000']
             const origin = req.headers.origin
-            if (acceptHosts.includes(origin)) {
+            if (process.env.ALLOWED_DOMAINS!.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin)
             } else {
                 console.log('Domain unauthorized: ' + origin)
@@ -43,7 +41,9 @@ export class App {
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
             next()
         })
-        this.app.use(morgan)
+        if (process.env.NODE_ENV !== 'production') {
+            this.app.use(morgan)
+        }
     }
     public start(): void {
         this.handleMiddlewares();

@@ -8,3 +8,8 @@ public/uploads/projects/images/*
 
 !public/uploads/projects/archives/default
 !public/uploads/projects/images/default
+
+#ENV
+.env
+.env.development
+.env.production
