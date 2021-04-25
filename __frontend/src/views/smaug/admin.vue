@@ -55,7 +55,9 @@ export default {
     const responce = await fetch(
       `${this.$store.state.host}api/v1/project/all/1`
     );
+    console.log("In admin");
     this.result = await responce.json();
+    console.log(this.result);
   },
   methods: {
     async disconnect() {

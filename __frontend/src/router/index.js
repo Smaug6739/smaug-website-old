@@ -51,12 +51,14 @@ router.beforeEach((to, _, next) => {
   const authenticated = getCookie('user_auth')
   const isPublic = to.matched.some(record => record.meta.public)
   if (!isPublic && !authenticated) {
+    console.log('No connected');
     return next({
       path: '/smaug/login',
       query: { redirect: to.fullPath }
     })
   }
   if (authenticated && !isPublic) {
+    console.log('connected');
     return next()
   }
   next()

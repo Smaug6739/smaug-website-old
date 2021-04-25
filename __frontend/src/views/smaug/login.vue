@@ -32,7 +32,6 @@ export default {
         withCredentials: true,
       });
       const result = await responce.json();
-      console.log(result);
       if (result.result.auth) this.$router.push("/admin");
     },
   },
