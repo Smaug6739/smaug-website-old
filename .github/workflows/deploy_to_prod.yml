@@ -21,4 +21,5 @@ jobs:
         tsc
         cd ..
     - name: reload
+      run: |
         pm2 reload ecosystem.config.js --env production
