@@ -15,11 +15,12 @@ jobs:
         git pull origin master
     - name: install
       run: |
-        cd ./backend
+        cd /home/smaug/Sites/smaug/backend
         npm prune -D
         npm install -D
         tsc
         cd ..
     - name: reload
       run: |
+        cd /home/smaug/Sites/smaug/
         pm2 reload ecosystem.config.js --env production
