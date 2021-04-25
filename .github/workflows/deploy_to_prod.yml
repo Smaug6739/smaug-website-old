@@ -1,0 +1,24 @@
+name: deploy to production
+# on:
+#  push:
+#    branches: [ master ]
+on:
+  release:
+    types: [published]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - name: pull
+      run: |
+        cd /home/smaug/Sites/smaug/
+        git pull origin master
+    - name: install
+      run: |
+        cd ./backend
+        npm prune -D
+        npm install -D
+        tsc
+        cd ..
+    - name: reload
+        pm2 reload ecosystem.config.js --env production

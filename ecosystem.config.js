@@ -9,9 +9,14 @@ module.exports = {
 			env: {
 				"NODE_ENV": "production",
 			},
-			env_production: {
-				"NODE_ENV": "production"
-			}
+		},
+		{
+			name: "smaug-website-backend",
+			cwd: './__frontend',
+			script: "serve -s dist",
+			env: {
+				"NODE_ENV": "production",
+			},
 		}
 	]
 };
