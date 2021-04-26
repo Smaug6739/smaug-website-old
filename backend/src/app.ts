@@ -6,7 +6,6 @@ const express = require('express')
 
 import { checkAndChange, error } from './utils/functions'
 import { Iconfig, IObject } from './types';
-const morgan = require('morgan')('dev');
 export class App {
     private app;
     public port: number;
@@ -42,6 +41,7 @@ export class App {
             next()
         })
         if (this.config.mode !== 'production') {
+            const morgan = require('morgan')('dev');
             this.app.use(morgan)
         }
     }

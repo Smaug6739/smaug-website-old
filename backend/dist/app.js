@@ -15,7 +15,6 @@ const path_1 = require("path");
 //import * as express from 'express';
 const express = require('express');
 const functions_1 = require("./utils/functions");
-const morgan = require('morgan')('dev');
 class App {
     constructor(config) {
         this.app = express();
@@ -48,6 +47,7 @@ class App {
             next();
         });
         if (this.config.mode !== 'production') {
+            const morgan = require('morgan')('dev');
             this.app.use(morgan);
         }
     }
