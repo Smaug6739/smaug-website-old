@@ -1,8 +1,8 @@
+#Nodejs
 node_modules
 package-lock.json
-config.js
-dist
-config.ts
+
+#Public dir
 public/uploads/projects/archives/*
 public/uploads/projects/images/*
 
@@ -13,3 +13,8 @@ public/uploads/projects/images/*
 .env
 .env.development
 .env.production
+
+#Config
+config.js
+config.ts
+prod.config.ts

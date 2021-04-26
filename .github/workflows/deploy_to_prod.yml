@@ -13,10 +13,8 @@ jobs:
     - name: install
       run: |
         cd /home/smaug/Sites/smaug/backend
-        npm prune -D
-        npm install -D
-        tsc
-        cd ..
+        npm prune --production
+        npm install --production
     - name: reload
       run: |
         cd /home/smaug/Sites/smaug/
