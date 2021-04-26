@@ -41,8 +41,8 @@ class ProjectClass {
             if (!page)
                 return reject(new Error('[MISSING_ARGUMENT] Page must be provided'));
             const pageNumber = parseInt(page);
-            const skip = (pageNumber * 6) - 6;
-            db_1.default.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 6 OFFSET ?', [skip], (err, result) => {
+            const skip = (pageNumber * 9) - 9;
+            db_1.default.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
                 if (err)
                     return reject(new Error(err.message));
                 resolve(result);
