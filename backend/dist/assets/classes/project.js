@@ -51,7 +51,6 @@ class ProjectClass {
     }
     add(name, order, version, description, content, category, image, github, bugs, link, license, source_code) {
         return new Promise((resolve, reject) => {
-            let categoryNumber = 0;
             let orderNumber = 0;
             if (!name)
                 return reject(new Error('[MISSING_ARGUMENT] : name must be provided'));
@@ -65,8 +64,6 @@ class ProjectClass {
                 return reject(new Error('[MISSING_ARGUMENT] : content must be provided'));
             if (!image)
                 image = 'default.png';
-            if (category)
-                categoryNumber = parseInt(category);
             if (!github)
                 github = '';
             if (!bugs)
@@ -79,8 +76,6 @@ class ProjectClass {
                 source_code = '';
             const date_insert = Date.now();
             const contentHTML = marked(content);
-            if (isNaN(categoryNumber))
-                return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
             if (image) {
                 sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
                     .resize(150, 150)
@@ -95,7 +90,7 @@ class ProjectClass {
                                     console.log(e);
                                 } });
                             image += '.webp';
-                            db_1.default.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
+                            db_1.default.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, category, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
                                 if (err)
                                     return reject(new Error(err.message));
                                 resolve(true);
@@ -115,7 +110,6 @@ class ProjectClass {
                     return reject(new Error(err.message));
                 else {
                     let orderNumber = 0;
-                    let categoryNumber = 0;
                     if (!name)
                         name = result[0].name;
                     if (!order)
@@ -129,9 +123,7 @@ class ProjectClass {
                     if (!content)
                         content = result[0].content;
                     if (!category)
-                        categoryNumber = result[0].category;
-                    if (category)
-                        categoryNumber = parseInt(category);
+                        category = result[0].category;
                     if (!image)
                         image = result[0].image;
                     if (!github)
@@ -145,8 +137,6 @@ class ProjectClass {
                     if (!source_code)
                         source_code = result[0].source_code;
                     const contentHTML = marked(content);
-                    if (isNaN(categoryNumber))
-                        return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
                     if (image) {
                         sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
                             .resize(150, 150)
@@ -161,7 +151,7 @@ class ProjectClass {
                                             console.log(e);
                                         } });
                                     image += '.webp';
-                                    db_1.default.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
+                                    db_1.default.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?', [name, orderNumber, version, description, contentHTML, category, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
                                         if (err)
                                             return reject(new Error(err.message));
                                         resolve({
