@@ -11,7 +11,7 @@ module.exports = {
 			},
 		},
 		{
-			name: "smaug-website-backend",
+			name: "smaug-website-frontend",
 			cwd: './__frontend',
 			script: "serve -s dist",
 			env: {
