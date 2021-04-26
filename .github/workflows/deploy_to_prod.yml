@@ -9,6 +9,7 @@ jobs:
     - name: pull
       run: |
         cd /home/smaug/Sites/smaug/
+        git reset --hard HEAD
         git pull origin master
     - name: install
       run: |
