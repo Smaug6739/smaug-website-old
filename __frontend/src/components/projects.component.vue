@@ -62,6 +62,10 @@ export default {
       type: Number,
       default: 1,
     },
+    limit: {
+      type: Number,
+      default: 9,
+    },
   },
   watch: {
     page: function (newVal) {
@@ -78,7 +82,7 @@ export default {
       fetch(`${this.$store.state.host}api/v1/project/all/${this.pageAPI}`).then(
         (responce) => {
           responce.json().then((result) => {
-            this.projects = result.result;
+            this.projects = result.result.splice(0, this.limit);
           });
         }
       );

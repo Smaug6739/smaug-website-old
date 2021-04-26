@@ -75,7 +75,7 @@
       <div class="separation">
         <h3>Projects :</h3>
       </div>
-      <Projects />
+      <Projects :limit="6" />
     </div>
   </div>
 </template>

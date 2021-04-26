@@ -38,6 +38,10 @@
           </tbody>
         </table>
       </div>
+      <div id="btns">
+        <button type="button" @click="previous" v-text="'< Previous'"></button>
+        <button type="button" @click="next">Next ></button>
+      </div>
     </div>
   </div>
 </template>
@@ -46,20 +50,33 @@ import Button from "@/components/common/btn.component.vue";
 export default {
   name: "Admin",
   data() {
-    return { result: [] };
+    return {
+      result: [],
+      page: 1,
+    };
   },
   components: {
     Button,
   },
   async beforeMount() {
-    const responce = await fetch(
-      `${this.$store.state.host}api/v1/project/all/1`
-    );
-    console.log("In admin");
-    this.result = await responce.json();
-    console.log(this.result);
+    this.fetchAPI();
   },
+
   methods: {
+    async fetchAPI() {
+      const responce = await fetch(
+        `${this.$store.state.host}api/v1/project/all/${this.page}`
+      );
+      this.result = await responce.json();
+    },
+    next() {
+      this.page++;
+      this.fetchAPI();
+    },
+    previous() {
+      this.page--;
+      this.fetchAPI();
+    },
     async disconnect() {
       await fetch(`${this.$store.state.host}api/v1/auth/disconnection`, {
         method: "GET",
@@ -102,6 +119,14 @@ h2 {
   }
   .btn {
     margin: 0px 5px 5px 5px;
+  }
+}
+#btns {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+  button {
+    margin: 5px;
   }
 }
 </style>
