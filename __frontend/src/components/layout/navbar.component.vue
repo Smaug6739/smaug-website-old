@@ -1,26 +1,25 @@
 <template>
-  <header>
-    <nav class="navbar">
-      <span class="navbar-toggle" id="js-navbar-toggle" @click="open">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-      </span>
-      <router-link to="/" class="img"
-        ><img src="@/assets/logo.png" alt="logo"
+  <header class="header">
+    <div>
+      <router-link to="/"
+        ><img src="../../assets/logo.png" alt="logo" class="logo"
       /></router-link>
-      <ul class="main-nav" id="js-menu">
-        <li>
+    </div>
+    <nav>
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"
+        ><span class="navicon"></span
+      ></label>
+      <ul class="menu">
+        <li class="link">
           <router-link to="/" class="nav-links" @click="close"
             >Home</router-link
           >
         </li>
-        <li>
-          <router-link to="/projects/1" class="nav-links" @click="close"
-            >Projects</router-link
-          >
+        <li class="link" @click="close">
+          <router-link to="/projects/1">Projects</router-link>
         </li>
-        <li>
+        <li class="link">
           <a
             href="https://github.com/SmaugDev"
             target="__blank"
@@ -36,108 +35,136 @@
 
 <style scoped lang="scss">
 @import "../../../public/scss/theme-variables";
-.navbar {
-  padding-top: 1%;
-  font-size: 18px;
+.header {
   background-color: $background-element;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 10px;
+  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+  //position: fixed;
+  width: 100%;
+  z-index: 3;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-.img {
-  max-width: 5%;
-}
-.img img {
-  max-width: 100%;
-}
-.bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px auto;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  background-color: #101010;
-}
-.main-nav {
-  list-style-type: none;
-  display: none;
-}
-
-.nav-links,
-.main-nav li {
-  text-align: center;
-  margin: 15px auto;
-  &.router-link-exact-active {
-    color: white;
-  }
-}
-
-.navbar-toggle {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  cursor: pointer;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 24px;
-}
-
-.active {
-  display: block;
-}
-@media screen and (min-width: 768px) {
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    height: 70px;
-    align-items: center;
-    flex-direction: row;
-  }
-  .img img {
-    width: 3%;
+  .logo {
+    width: 30px;
+    height: 35px;
     position: absolute;
-    left: 10px;
-    top: 10px;
+    font-size: 1em;
+    padding: 10px 20px;
   }
-  .main-nav {
+  nav {
     display: flex;
-    margin-right: 30px;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: $background-element;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-end;
   }
-
-  .main-nav li {
-    margin: 0;
+  li {
+    a {
+      display: block;
+      padding: 20px 20px;
+      border-right: 1px solid #ffffff;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    .router-link-exact-active {
+      color: white;
+    }
   }
-
-  .nav-links {
-    margin-left: 40px;
+  .menu {
+    clear: both;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
   }
-  .navbar-toggle {
+  .menu-icon {
+    cursor: pointer;
+    padding: 28px 20px;
+    align-self: flex-end;
+    user-select: none;
+  }
+  .menu-icon .navicon {
+    background: #ffffff;
+    display: block;
+    height: 2px;
+    position: relative;
+    align-self: flex-start;
+    transition: background 0.2s ease-out;
+    width: 18px;
+  }
+  .menu-btn {
     display: none;
   }
+  .menu-icon .navicon:before,
+  .menu-icon .navicon:after {
+    background: #ffffff;
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all 0.2s ease-out;
+    width: 100%;
+  }
+  .menu-btn:checked ~ .menu {
+    // One item = 68px
+    max-height: 204px;
+  }
+  .menu-icon .navicon:before {
+    top: 5px;
+  }
+  .menu-icon .navicon:after {
+    top: -5px;
+  }
+  .menu-btn:checked ~ .menu-icon .navicon {
+    background: transparent;
+  }
+  .menu-btn:checked ~ .menu-icon .navicon:before {
+    transform: rotate(-45deg);
+  }
+  .menu-btn:checked ~ .menu-icon .navicon:after {
+    transform: rotate(45deg);
+  }
+  .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+  .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+    top: 0;
+  }
+}
 
-  .nav-links:hover {
-    color: rgba(255, 255, 255, 1);
+/* 48em = 768px */
+@media (min-width: 48em) {
+  .header ul {
+    flex-direction: row;
+  }
+  .header li {
+    float: left;
+  }
+  .header li a {
+    padding: 20px 30px;
+  }
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+  }
+  .header .menu-icon {
+    display: none;
   }
 }
 </style>
 
 <script>
 export default {
-  name: "navbar",
+  name: "Navbar",
   methods: {
-    open() {
-      let mainNav = document.getElementById("js-menu");
-      mainNav.classList.toggle("active");
-    },
     close() {
-      let mainNav = document.getElementById("js-menu");
-      mainNav.classList.toggle("active");
+      const menu = document.getElementsByClassName("menu")[0];
+      menu.style.clear = "both";
+      menu.style.transition = "max-height 0.2s ease-out";
+      document.getElementById("menu-btn").checked = false;
     },
   },
 };

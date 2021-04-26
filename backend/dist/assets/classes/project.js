@@ -83,7 +83,7 @@ class ProjectClass {
                 return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
             if (image) {
                 sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
-                    .resize(130, 130)
+                    .resize(150, 150)
                     .toFile(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err, info) => {
                     if (err)
                         return reject(new Error('sharp error'));
@@ -149,7 +149,7 @@ class ProjectClass {
                         return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
                     if (image) {
                         sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
-                            .resize(130, 130)
+                            .resize(150, 150)
                             .toFile(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err, info) => {
                             if (err)
                                 return reject(new Error('sharp error'));

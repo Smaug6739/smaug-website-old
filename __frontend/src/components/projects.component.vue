@@ -6,6 +6,8 @@
           <img
             :src="host + 'static/uploads/projects/images/' + project.image"
             alt=""
+            width="150"
+            height="150"
           />
         </div>
         <div class="infos">
@@ -115,10 +117,7 @@ li {
 }
 
 .top > img {
-  width: 50%;
   margin-top: -25%;
-  max-height: 150px;
-  max-width: 150px;
   display: block;
   margin-left: auto;
   margin-right: auto;

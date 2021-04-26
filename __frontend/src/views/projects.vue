@@ -20,15 +20,22 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      page: Number,
     };
+  },
+  beforeMount() {
+    this.page = parseInt(window.location.href.split("/").reverse()[0]);
   },
   methods: {
     next() {
-      this.page++;
+      const nextPage = this.page + 1;
+      this.$router.push(`/projects/${nextPage}`);
+      this.page = nextPage;
     },
     previous() {
-      this.page--;
+      const previousPage = this.page - 1;
+      this.$router.push(`/projects/${previousPage}`);
+      this.page = previousPage;
     },
   },
 };

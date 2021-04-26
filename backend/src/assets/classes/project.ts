@@ -76,7 +76,7 @@ export default class ProjectClass {
 			if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 			if (image) {
 				sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
-					.resize(130, 130)
+					.resize(150, 150)
 					.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
 						if (err) return reject(new Error('sharp error'));
 						else {
@@ -135,7 +135,7 @@ export default class ProjectClass {
 					if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
 					if (image) {
 						sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
-							.resize(130, 130)
+							.resize(150, 150)
 							.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
 								if (err) return reject(new Error('sharp error'));
 								else {

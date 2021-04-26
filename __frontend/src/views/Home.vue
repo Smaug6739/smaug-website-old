@@ -41,22 +41,32 @@
       <p>
         <img
           src="https://img.shields.io/static/v1?label=Uses&message=HTML&color=green"
-          alt=""
+          alt="HTML"
           class="badge"
         />
         <img
           src="https://img.shields.io/static/v1?label=Uses&message=CSS&color=green"
-          alt=""
+          alt="CSS"
           class="badge"
         />
         <img
           src="https://img.shields.io/static/v1?label=Uses&message=Javascript&color=green"
-          alt=""
+          alt="Javascript"
+          class="badge"
+        />
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=Typescript&color=green"
+          alt="Typescript"
           class="badge"
         />
         <img
           src="https://img.shields.io/static/v1?label=Uses&message=Node.js&color=green"
-          alt=""
+          alt="Node.js"
+          class="badge"
+        />
+        <img
+          src="https://img.shields.io/static/v1?label=Uses&message=PHP&color=green"
+          alt="PHP"
           class="badge"
         />
       </p>
@@ -85,7 +95,7 @@ export default {
 <style scoped lang='scss'>
 @import "../../public/scss/theme-variables";
 #home {
-  background-image: url("../assets/background.png");
+  background-image: url("../assets/background.webp");
   background-repeat: no-repeat;
   height: 40vh;
   #smaug {
