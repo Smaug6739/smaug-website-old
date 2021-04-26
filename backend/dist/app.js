@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const fs_1 = require("fs");
 const path_1 = require("path");
-const express = require("express");
+//import * as express from 'express';
+const express = require('express');
 const functions_1 = require("./utils/functions");
 const morgan = require('morgan')('dev');
 class App {
@@ -20,8 +21,7 @@ class App {
         this.app = express();
         this.port = config.port;
         this.config = config;
-        console.log('Starting...');
-        console.log(process.env.NODE_ENV);
+        console.log(`Starting in ${process.env.NODE_ENV} mode...`);
     }
     handleRoutes() {
         fs_1.readdirSync(path_1.join(__dirname, 'routes')).forEach(dir => {
@@ -41,15 +41,12 @@ class App {
             if (process.env.ALLOWED_DOMAINS.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin);
             }
-            else {
-                console.log('Domain unauthorized: ' + origin);
-            }
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.setHeader('Access-Control-Allow-Credentials', 'true');
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
             next();
         });
-        if (process.env.NODE_ENV !== 'production') {
+        if (this.config.mode !== 'production') {
             this.app.use(morgan);
         }
     }

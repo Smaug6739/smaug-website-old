@@ -20,7 +20,6 @@ export function add(req: IObject, res: IObject): void {
 	let source_code = ''
 	if (req.files && req.files.miniature) miniature = req.files.miniature[0].filename
 	if (req.files && req.files.source) source_code = req.files.source[0].filename
-	console.log(2)
 	Projects.add(
 		req.body.name,
 		req.body.order,

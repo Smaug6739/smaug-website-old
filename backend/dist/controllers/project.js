@@ -1,9 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProject = exports.update = exports.add = exports.getProject = exports.getProjects = void 0;
 const fs_1 = require("fs");
 const path_1 = require("path");
-const project_1 = require("../assets/classes/project");
+const project_1 = __importDefault(require("../assets/classes/project"));
 const functions_1 = require("../utils/functions");
 const Projects = new project_1.default();
 function getProjects(req, res) {
@@ -25,7 +28,6 @@ function add(req, res) {
         miniature = req.files.miniature[0].filename;
     if (req.files && req.files.source)
         source_code = req.files.source[0].filename;
-    console.log(2);
     Projects.add(req.body.name, req.body.order, req.body.version, req.body.description, req.body.content, req.body.category, miniature, req.body.github, req.body.bugs, req.body.link, req.body.license, source_code)
         .then(() => res.status(201).json(functions_1.success('success')))
         .catch((err) => {

@@ -11,6 +11,8 @@ export interface Iconfig {
         readonly database: string;
     }
     readonly secret: string;
+    readonly mode: string;
+    readonly domain: string;
 }
 //Router
 export interface Iroute {

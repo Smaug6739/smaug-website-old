@@ -1,7 +1,13 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const marked = require("marked");
-const db_1 = require("../../models/db");
+const sharp = require('sharp');
+const fs_1 = require("fs");
+const path_1 = require("path");
+const db_1 = __importDefault(require("../../models/db"));
 marked.setOptions({
     renderer: new marked.Renderer(),
     highlight: function (code, lang) {
@@ -17,6 +23,7 @@ marked.setOptions({
     smartypants: false,
     xhtml: false
 });
+sharp.cache(false);
 class ProjectClass {
     get(id) {
         return new Promise((resolve, reject) => {
@@ -43,7 +50,6 @@ class ProjectClass {
         });
     }
     add(name, order, version, description, content, category, image, github, bugs, link, license, source_code) {
-        console.log('in class');
         return new Promise((resolve, reject) => {
             let categoryNumber = 0;
             let orderNumber = 0;
@@ -75,11 +81,29 @@ class ProjectClass {
             const contentHTML = marked(content);
             if (isNaN(categoryNumber))
                 return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
-            db_1.default.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
-                if (err)
-                    return reject(new Error(err.message));
-                resolve(true);
-            });
+            if (image) {
+                sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
+                    .resize(130, 130)
+                    .toFile(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err, info) => {
+                    if (err)
+                        return reject(new Error('sharp error'));
+                    else {
+                        const oldImagePath = path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`);
+                        fs_1.stat(oldImagePath, (err, info) => {
+                            if (info)
+                                fs_1.unlink(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`), (e) => { if (e) {
+                                    console.log(e);
+                                } });
+                            image += '.webp';
+                            db_1.default.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
+                                if (err)
+                                    return reject(new Error(err.message));
+                                resolve(true);
+                            });
+                        });
+                    }
+                });
+            }
         });
     }
     put(id, name, order, version, description, content, category, image, github, bugs, link, license, source_code) {
@@ -123,14 +147,32 @@ class ProjectClass {
                     const contentHTML = marked(content);
                     if (isNaN(categoryNumber))
                         return reject(new Error('[INVALID_ARGUMENT] category must be a number'));
-                    db_1.default.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
-                        if (err)
-                            return reject(new Error(err.message));
-                        resolve({
-                            oldImage: result[0].image,
-                            oldArchive: result[0].source_code
+                    if (image) {
+                        sharp(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`))
+                            .resize(130, 130)
+                            .toFile(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err, info) => {
+                            if (err)
+                                return reject(new Error('sharp error'));
+                            else {
+                                const oldImagePath = path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`);
+                                fs_1.stat(oldImagePath, (err, info) => {
+                                    if (info)
+                                        fs_1.unlink(path_1.join(__dirname, `../../../public/uploads/projects/images/${image}`), (e) => { if (e) {
+                                            console.log(e);
+                                        } });
+                                    image += '.webp';
+                                    db_1.default.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
+                                        if (err)
+                                            return reject(new Error(err.message));
+                                        resolve({
+                                            oldImage: result[0].image,
+                                            oldArchive: result[0].source_code
+                                        });
+                                    });
+                                });
+                            }
                         });
-                    });
+                    }
                 }
             });
         });

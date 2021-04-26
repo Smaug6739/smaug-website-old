@@ -1,4 +1,8 @@
 const marked = require("marked");
+const sharp = require('sharp');
+import { unlink, stat } from 'fs';
+import { join } from 'path';
+
 import db from '../../models/db';
 marked.setOptions({
 	renderer: new marked.Renderer(),
@@ -15,6 +19,7 @@ marked.setOptions({
 	smartypants: false,
 	xhtml: false
 });
+sharp.cache(false);
 
 export default class ProjectClass {
 	public get(id: string) {
@@ -51,7 +56,6 @@ export default class ProjectClass {
 		license?: string,
 		source_code?: string
 	): Promise<boolean | Error> {
-		console.log('in class')
 		return new Promise((resolve, reject) => {
 			let categoryNumber = 0;
 			let orderNumber = 0;
@@ -67,13 +71,28 @@ export default class ProjectClass {
 			if (!link) link = ''
 			if (!license) license = ''
 			if (!source_code) source_code = '';
-			const date_insert = Date.now()
+			const date_insert = Date.now();
 			const contentHTML = marked(content)
 			if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
-			db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
-				if (err) return reject(new Error(err.message))
-				resolve(true)
-			})
+			if (image) {
+				sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
+					.resize(130, 130)
+					.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
+						if (err) return reject(new Error('sharp error'));
+						else {
+							const oldImagePath = join(__dirname, `../../../public/uploads/projects/images/${image}`);
+							stat(oldImagePath, (err, info) => {
+								if (info) unlink(join(__dirname, `../../../public/uploads/projects/images/${image}`), (e) => { if (e) { console.log(e) } })
+								image += '.webp'
+								db.query('INSERT INTO projects  (`name`, `order`, `version`, `description`, `content`, `category`, `image`, `github`, `bugs`, `link`, `license`, `source_code`, `date_insert`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)', [name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, date_insert], (err, result) => {
+									if (err) return reject(new Error(err.message))
+									resolve(true)
+								})
+							})
+
+						}
+					});
+			}
 		})
 	}
 	public put(
@@ -114,17 +133,30 @@ export default class ProjectClass {
 					if (!source_code) source_code = result[0].source_code
 					const contentHTML = marked(content)
 					if (isNaN(categoryNumber)) return reject(new Error('[INVALID_ARGUMENT] category must be a number'))
-					db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
-						[name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
-							if (err) return reject(new Error(err.message))
-							resolve({
-								oldImage: result[0].image,
-								oldArchive: result[0].source_code
-							})
-						})
+					if (image) {
+						sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
+							.resize(130, 130)
+							.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
+								if (err) return reject(new Error('sharp error'));
+								else {
+									const oldImagePath = join(__dirname, `../../../public/uploads/projects/images/${image}`);
+									stat(oldImagePath, (err, info) => {
+										if (info) unlink(join(__dirname, `../../../public/uploads/projects/images/${image}`), (e) => { if (e) { console.log(e) } })
+										image += '.webp'
+										db.query('UPDATE projects SET `name`=?, `order`=?, `version`=?, `description`=?,`content`=?,`category`=?, `image`=?, `github`=?, `bugs`=?, `link`=?, `license`=?, `source_code`=? WHERE id = ?',
+											[name, orderNumber, version, description, contentHTML, categoryNumber, image, github, bugs, link, license, source_code, result[0].id], (err, r) => {
+												if (err) return reject(new Error(err.message))
+												resolve({
+													oldImage: result[0].image,
+													oldArchive: result[0].source_code
+												})
+											})
+									})
+								}
+							});
+					}
 				}
 			})
-
 		})
 	}
 	public delete(id: string) {

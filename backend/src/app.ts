@@ -1,7 +1,8 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
 
-import * as express from 'express';
+//import * as express from 'express';
+const express = require('express')
 
 import { checkAndChange, error } from './utils/functions'
 import { Iconfig, IObject } from './types';
@@ -14,8 +15,7 @@ export class App {
         this.app = express();
         this.port = config.port;
         this.config = config
-        console.log('Starting...')
-        console.log(process.env.NODE_ENV);
+        console.log(`Starting in ${process.env.NODE_ENV} mode...`)
     }
     private handleRoutes(): void {
         readdirSync(join(__dirname, 'routes')).forEach(dir => {
@@ -34,15 +34,13 @@ export class App {
             const origin = req.headers.origin
             if (process.env.ALLOWED_DOMAINS!.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin)
-            } else {
-                console.log('Domain unauthorized: ' + origin)
             }
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
             res.setHeader('Access-Control-Allow-Credentials', 'true')
             res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
             next()
         })
-        if (process.env.NODE_ENV !== 'production') {
+        if (this.config.mode !== 'production') {
             this.app.use(morgan)
         }
     }
