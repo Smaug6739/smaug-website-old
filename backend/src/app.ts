@@ -30,9 +30,10 @@ export class App {
     private handleMiddlewares(): void {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
+        const ALLOWED_DOMAINS = this.config.ALLOWED_DOMAINS
         this.app.use(function (req: IObject, res: IObject, next: Function) {
-            const origin = req.headers.origin
-            if (process.env.ALLOWED_DOMAINS!.includes(origin)) {
+            const origin = req.headers.origin;
+            if (ALLOWED_DOMAINS.includes(origin)) {
                 res.setHeader('Access-Control-Allow-Origin', origin)
             }
             res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
