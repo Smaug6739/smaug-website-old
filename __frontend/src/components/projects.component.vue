@@ -115,6 +115,7 @@ li {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0.5;
   position: relative;
   margin: 40px;
   margin-bottom: 100px;

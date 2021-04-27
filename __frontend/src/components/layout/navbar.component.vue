@@ -19,6 +19,9 @@
         <li class="link" @click="close">
           <router-link to="/projects/1">Projects</router-link>
         </li>
+        <li class="link" @click="close">
+          <router-link to="/resources/1">Resources</router-link>
+        </li>
         <li class="link">
           <a
             href="https://github.com/SmaugDev"
@@ -111,7 +114,7 @@
   }
   .menu-btn:checked ~ .menu {
     // One item = 68px
-    max-height: 204px;
+    max-height: 272px;
   }
   .menu-icon .navicon:before {
     top: 5px;

@@ -1,6 +1,8 @@
 import Login from '../views/smaug/login.vue';
 import Project from '../views/view.project.vue';
+import Resource from '../views/view.resource.vue';
 import Projects from '../views/projects.vue';
+import Resources from '../views/resources.vue';
 
 const routes = [
 
@@ -15,16 +17,20 @@ const routes = [
 		component: Projects
 	},
 	{
+		path: '/resources/:page',
+		name: 'Resources',
+		component: Resources
+	},
+	{
 		path: '/project/:projectId',
 		name: 'Project',
 		component: Project
 	},
-	/*{
-		path: '/about',
-		name: 'About',
-		component: () => import('../views/About.vue')
-	},*/
-
+	{
+		path: '/resource/:resourceId',
+		name: 'Resource',
+		component: Resource
+	},
 ]
 
 export default routes.map(route => {
