@@ -24,8 +24,8 @@
           <textarea
             name="content"
             id="content"
-            cols="60"
-            rows="10"
+            cols="30"
+            rows="25"
             placeholder="Contenu du projet"
           ></textarea>
         </li>
