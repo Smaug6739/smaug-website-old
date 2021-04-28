@@ -52,7 +52,6 @@ export default {
         `${this.$store.state.host}api/v1/resources/all/${this.pageAPI}`
       ).then((responce) => {
         responce.json().then((result) => {
-          console.log(result);
           this.resources = result.result;
         });
       });

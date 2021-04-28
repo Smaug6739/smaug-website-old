@@ -36,7 +36,6 @@ export default {
         `${this.$store.state.host}api/v1/resources/${this.resourceId}`
       ).then((responce) => {
         responce.json().then((result) => {
-          console.log(result);
           this.resource = result.result;
         });
       });
@@ -163,6 +162,14 @@ desc {
       padding: 10px;
       margin-bottom: 5px;
     }
+  }
+}
+@media screen and (max-width: 800px) {
+  #resource {
+    width: 90%;
+    padding: 5px;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 </style>
