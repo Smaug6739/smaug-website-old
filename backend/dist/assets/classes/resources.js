@@ -91,7 +91,7 @@ class ResourceClass {
                     if (!author)
                         content = result[0].author;
                     const contentHTML = marked(content);
-                    db_1.default.query('UPDATE resources SET name=?, category=?, description=?, content=?, author=?', [name, category, description, contentHTML, author], (err, result) => {
+                    db_1.default.query('UPDATE resources SET name=?, category=?, description=?, content=?, author=? WHERE id = ?', [name, category, description, contentHTML, author, id], (err, result) => {
                         if (err)
                             return reject(new Error(err.message));
                         resolve(true);

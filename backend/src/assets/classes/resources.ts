@@ -82,7 +82,7 @@ export default class ResourceClass {
 					if (!content) content = result[0].content
 					if (!author) content = result[0].author
 					const contentHTML = marked(content)
-					db.query('UPDATE resources SET name=?, category=?, description=?, content=?, author=?', [name, category, description, contentHTML, author], (err, result) => {
+					db.query('UPDATE resources SET name=?, category=?, description=?, content=?, author=? WHERE id = ?', [name, category, description, contentHTML, author, id], (err, result) => {
 						if (err) return reject(new Error(err.message))
 						resolve(true)
 					})

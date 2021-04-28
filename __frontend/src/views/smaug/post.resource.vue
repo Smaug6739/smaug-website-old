@@ -25,7 +25,7 @@
             name="content"
             id="content"
             cols="30"
-            rows="25"
+            rows="30"
             placeholder="Contenu du projet"
           ></textarea>
         </li>

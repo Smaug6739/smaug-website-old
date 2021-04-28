@@ -37,7 +37,7 @@
               name="content"
               id="content"
               cols="30"
-              rows="25"
+              rows="30"
               placeholder="Contenu du projet"
               v-text="result.content ? result.content : ''"
             ></textarea>
