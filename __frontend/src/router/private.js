@@ -28,7 +28,7 @@ const routes = [
 	},
 	{
 		path: '/admin/resources/new',
-		name: 'Post project',
+		name: 'Post resource',
 		component: PostResource
 	},
 ]
