@@ -73,7 +73,7 @@ export default class ProjectClass {
 			const contentHTML = marked(content)
 			if (image) {
 				sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
-					.resize(150, 150)
+					.resize(200, 200)
 					.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
 						if (err) return reject(new Error('sharp error'));
 						else {
@@ -129,7 +129,7 @@ export default class ProjectClass {
 					const contentHTML = marked(content)
 					if (image) {
 						sharp(join(__dirname, `../../../public/uploads/projects/images/${image}`))
-							.resize(150, 150)
+							.resize(200, 200)
 							.toFile(join(__dirname, `../../../public/uploads/projects/images/${image}.webp`), (err: Error, info: string) => {
 								if (err) return reject(new Error('sharp error'));
 								else {
