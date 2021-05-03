@@ -8,6 +8,7 @@ const sharp = require('sharp');
 const fs_1 = require("fs");
 const path_1 = require("path");
 const db_1 = __importDefault(require("../../models/db"));
+const { Paginator } = require('array-paginator');
 marked.setOptions({
     renderer: new marked.Renderer(),
     highlight: function (code, lang) {
@@ -25,6 +26,12 @@ marked.setOptions({
 });
 sharp.cache(false);
 class ProjectClass {
+    constructor() {
+        db_1.default.query('SELECT * FROM projects ORDER BY `order` DESC', (err, result) => {
+            if (!err)
+                this.pager = new Paginator(result, 9);
+        });
+    }
     get(id) {
         return new Promise((resolve, reject) => {
             if (!id)
@@ -37,16 +44,19 @@ class ProjectClass {
         });
     }
     getAll(page) {
+        /*return new Promise((resolve, reject) => {
+            if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
+            const pageNumber = parseInt(page)
+            const skip = (pageNumber * 9) - 9
+            db.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
+                if (err) return reject(new Error(err.message))
+                resolve(result)
+            })
+        })*/
         return new Promise((resolve, reject) => {
             if (!page)
                 return reject(new Error('[MISSING_ARGUMENT] Page must be provided'));
-            const pageNumber = parseInt(page);
-            const skip = (pageNumber * 9) - 9;
-            db_1.default.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
-                if (err)
-                    return reject(new Error(err.message));
-                resolve(result);
-            });
+            return resolve(this.pager.page(parseInt(page)));
         });
     }
     add(name, order, version, description, content, category, image, github, bugs, link, license, source_code) {

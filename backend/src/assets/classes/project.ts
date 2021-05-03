@@ -4,6 +4,8 @@ import { unlink, stat } from 'fs';
 import { join } from 'path';
 
 import db from '../../models/db';
+
+const { Paginator } = require('array-paginator');
 marked.setOptions({
 	renderer: new marked.Renderer(),
 	highlight: function (code: string, lang: string) {
@@ -22,6 +24,13 @@ marked.setOptions({
 sharp.cache(false);
 
 export default class ProjectClass {
+	pager: any;
+	constructor() {
+		db.query('SELECT * FROM projects ORDER BY `order` DESC', (err, result) => {
+			if (!err) this.pager = new Paginator(result, 9)
+
+		})
+	}
 	public get(id: string) {
 		return new Promise((resolve, reject) => {
 			if (!id) return reject(new Error('[MISSING_ARGUMENT] Project id must be provided'))
@@ -32,7 +41,7 @@ export default class ProjectClass {
 		})
 	}
 	public getAll(page: string) {
-		return new Promise((resolve, reject) => {
+		/*return new Promise((resolve, reject) => {
 			if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
 			const pageNumber = parseInt(page)
 			const skip = (pageNumber * 9) - 9
@@ -40,6 +49,10 @@ export default class ProjectClass {
 				if (err) return reject(new Error(err.message))
 				resolve(result)
 			})
+		})*/
+		return new Promise((resolve, reject) => {
+			if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
+			return resolve(this.pager.page(parseInt(page)))
 		})
 	}
 	public add(

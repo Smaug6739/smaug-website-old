@@ -78,14 +78,13 @@ export default {
     this.fetchAPI();
   },
   methods: {
-    fetchAPI() {
-      fetch(`${this.$store.state.host}api/v1/project/all/${this.pageAPI}`).then(
-        (responce) => {
-          responce.json().then((result) => {
-            this.projects = result.result.splice(0, this.limit);
-          });
-        }
+    async fetchAPI() {
+      const responce = await fetch(
+        `${this.$store.state.host}api/v1/project/all/${this.pageAPI}`
       );
+      const result = await responce.json();
+      if (result && result.result)
+        this.projects = result.result.splice(0, this.limit);
     },
   },
   components: {
