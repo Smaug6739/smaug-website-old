@@ -41,19 +41,22 @@ export default class ProjectClass {
 		})
 	}
 	public getAll(page: string) {
-		/*return new Promise((resolve, reject) => {
+		/*
+
+        return new Promise((resolve, reject) => {
 			if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
 			const pageNumber = parseInt(page)
 			const skip = (pageNumber * 9) - 9
 			db.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
 				if (err) return reject(new Error(err.message))
-				resolve(result)
+				resolve(result);
+                                console.log(result);
 			})
-		})*/
-		return new Promise((resolve, reject) => {
+		})
+		/*return new Promise((resolve, reject) => {
 			if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
 			return resolve(this.pager.page(parseInt(page)))
-		})
+		})*/
 	}
 	public add(
 		name: string,
