@@ -44,20 +44,22 @@ class ProjectClass {
         });
     }
     getAll(page) {
-        /*return new Promise((resolve, reject) => {
-            if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
-            const pageNumber = parseInt(page)
-            const skip = (pageNumber * 9) - 9
-            db.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
-                if (err) return reject(new Error(err.message))
-                resolve(result)
-            })
-        })*/
         return new Promise((resolve, reject) => {
             if (!page)
                 return reject(new Error('[MISSING_ARGUMENT] Page must be provided'));
-            return resolve(this.pager.page(parseInt(page)));
+            const pageNumber = parseInt(page);
+            const skip = (pageNumber * 9) - 9;
+            db_1.default.query('SELECT * FROM projects ORDER BY `order` DESC LIMIT 9 OFFSET ?', [skip], (err, result) => {
+                if (err)
+                    return reject(new Error(err.message));
+                resolve(result);
+                console.log(result);
+            });
         });
+        /*return new Promise((resolve, reject) => {
+            if (!page) return reject(new Error('[MISSING_ARGUMENT] Page must be provided'))
+            return resolve(this.pager.page(parseInt(page)))
+        })*/
     }
     add(name, order, version, description, content, category, image, github, bugs, link, license, source_code) {
         return new Promise((resolve, reject) => {
