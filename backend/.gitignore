@@ -18,3 +18,4 @@ public/uploads/projects/images/*
 config.js
 config.ts
 prod.config.ts
+prod.config.js
