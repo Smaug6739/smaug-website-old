@@ -19,7 +19,20 @@ connection.connect(function (err) {
     logsWebhook.send('Mysql connected as id: ' + connection.threadId);
 });
 connection.on('error', function (err) {
-    logsWebhook.send(err.code, { code: 'js' });
-    logsWebhook.send(err.stack, { code: 'js' });
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        logsWebhook.send('Mysql error : PROTOCOL_CONNECTION_LOST. Try reconnecting...');
+        connection.connect(function (err) {
+            if (err) {
+                console.error('Mysql error reconnecting: ' + err.stack);
+                logsWebhook.send('Mysql error reconnecting:');
+                logsWebhook.send(err.stack, { code: 'js' });
+                return;
+            }
+        });
+    }
+    else {
+        logsWebhook.send(err.code, { code: 'js' });
+        logsWebhook.send(err.stack, { code: 'js' });
+    }
 });
 exports.default = connection;
