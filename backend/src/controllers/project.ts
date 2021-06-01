@@ -2,17 +2,17 @@ import { unlink } from 'fs'
 import { join } from 'path'
 import ProjectClass from '../assets/classes/project';
 import { IObject } from '../types';
-import { checkAndChange, error, success } from '../utils/functions';
+import { error, success } from '../utils/functions';
 const Projects = new ProjectClass();
 
 export function getProjects(req: IObject, res: IObject): void {
 	Projects.getAll(req.params.page)
-		.then((result: any) => res.status(201).json(success(result)))
+		.then((result: any) => res.status(200).json(success(result)))
 		.catch((err: Error) => res.json(error(err.message)))
 }
 export function getProject(req: IObject, res: IObject): void {
 	Projects.get(req.params.projectId)
-		.then((result: any) => res.status(201).json(success(result)))
+		.then((result: any) => res.status(200).json(success(result)))
 		.catch((err: Error) => res.json(error(err.message)))
 }
 export function add(req: IObject, res: IObject): void {
@@ -65,7 +65,7 @@ export function update(req: IObject, res: IObject) {
 		source_code
 	)
 		.then((result: any) => {
-			res.status(201).json(success('success'))
+			res.status(200).json(success('success'))
 			if (miniature && result.oldImage) unlink(join(__dirname, `../../public/uploads/projects/images/${result.oldImage}`), (e) => { if (e) { console.log(e) } })
 			if (source_code && result.oldArchive) unlink(join(__dirname, `../../public/uploads/projects/archives/${result.oldArchive}`), (e) => { if (e) { console.log(e) } })
 		})
@@ -79,7 +79,7 @@ export function update(req: IObject, res: IObject) {
 export function deleteProject(req: IObject, res: IObject) {
 	Projects.delete(req.params.projectId)
 		.then((result: any) => {
-			res.status(201).json(success('success'))
+			res.status(200).json(success('success'))
 			if (result.oldImage) unlink(join(__dirname, `../../public/uploads/projects/images/${result.oldImage}`), (e) => { if (e) { console.log(e) } })
 			if (result.oldArchive) unlink(join(__dirname, `../../public/uploads/projects/archives/${result.oldArchive}`), (e) => { if (e) { console.log(e) } })
 		})
