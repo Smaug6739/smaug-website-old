@@ -1,9 +1,9 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
-import { WebhookClient } from 'discord.js'
+import { WebhookClient } from 'discord.js';
 
 //import * as express from 'express';
-const express = require('express')
+const express = require('express');
 
 import { checkAndChange, error } from './utils/functions'
 import { Iconfig, IObject } from './types';
