@@ -10,6 +10,10 @@ export interface Iconfig {
         readonly password: string;
         readonly database: string;
     }
+    readonly logs: {
+        readonly webhookId: string;
+        readonly webhookToken: string;
+    }
     readonly ALLOWED_DOMAINS: Array<string>
     readonly secret: string;
     readonly mode: string;

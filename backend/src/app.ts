@@ -1,5 +1,6 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
+import { WebhookClient } from 'discord.js'
 
 //import * as express from 'express';
 const express = require('express')
@@ -56,6 +57,8 @@ export class App {
 
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`)
+            const logsWebhook = new WebhookClient(this.config.logs.webhookId, this.config.logs.webhookToken)
+            logsWebhook.send(`Started on port ${this.port}`)
         })
         this.app.all('*', (req: IObject, res: IObject) => {
             res.status(404).json(checkAndChange(new Error("404 not found")))

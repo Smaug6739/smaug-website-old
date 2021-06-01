@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const fs_1 = require("fs");
 const path_1 = require("path");
+const discord_js_1 = require("discord.js");
 //import * as express from 'express';
 const express = require('express');
 const functions_1 = require("./utils/functions");
@@ -65,6 +66,8 @@ class App {
         this.app.use('/static', express.static(path_1.join(__dirname, '../public')));
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`);
+            const logsWebhook = new discord_js_1.WebhookClient(this.config.logs.webhookId, this.config.logs.webhookToken);
+            logsWebhook.send(`Started on port ${this.port}`);
         });
         this.app.all('*', (req, res) => {
             res.status(404).json(functions_1.checkAndChange(new Error("404 not found")));

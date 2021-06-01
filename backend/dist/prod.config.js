@@ -10,6 +10,10 @@ exports.config = {
         password: 'Io73uh96/&*',
         database: 'smaug_website'
     },
+    logs: {
+        webhookId: '849241146902183968',
+        webhookToken: '6i9UPb8QViRsqxjtsT8MMJWOYtEusH0_BKEJJWkxnOXo3e8rwWcV6J6xYky-V2y5cs7D',
+    },
     domain: "smaug-6739.com",
     ALLOWED_DOMAINS: ["https://api.smaug-6739.com", "https://smaug-6739.com"],
     mode: 'production',

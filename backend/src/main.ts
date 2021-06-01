@@ -7,5 +7,6 @@ import * as dotenv from 'dotenv';
 dotenv.config({
 	path: join(__dirname, '../.env')
 });
+
 const server: App = new App(config)
 server.start();
