@@ -8,4 +8,4 @@ Javascript Vuejs with vuejs cli
 
 ## Backend
 
-Typescript with expressjs 
+Typescript with expressjs. 
