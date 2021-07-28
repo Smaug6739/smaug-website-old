@@ -63,7 +63,17 @@ class App {
                     console.error(err);
             });
         });
-        this.app.use('/static', express.static(path_1.join(__dirname, '../public')));
+        const staticOptions = {
+            dotfiles: 'ignore',
+            etag: false,
+            index: false,
+            maxAge: '7d',
+            redirect: false,
+            setHeaders: function (res, path, stat) {
+                res.set('x-timestamp', Date.now().toString());
+            }
+        };
+        this.app.use('/static', express.static(path_1.join(__dirname, '../public'), staticOptions));
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`);
             const logsWebhook = new discord_js_1.WebhookClient(this.config.logs.webhookId, this.config.logs.webhookToken);

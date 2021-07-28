@@ -1,6 +1,8 @@
 import { readdirSync } from 'fs';
 import { join } from 'path';
 import { WebhookClient } from 'discord.js';
+import type { Response } from 'express';
+
 
 //import * as express from 'express';
 const express = require('express');
@@ -53,7 +55,17 @@ export class App {
             if (err.message.match('File too large')) return res.json(error('[ERROR_FILE_SIZE] File is too large.'))
             else console.error(err)
         });
-        this.app.use('/static', express.static(join(__dirname, '../public')));
+        const staticOptions = {
+            dotfiles: 'ignore',
+            etag: false,
+            index: false,
+            maxAge: '7d',
+            redirect: false,
+            setHeaders: function (res: Response, path: string, stat: any) {
+                res.set('x-timestamp', Date.now().toString())
+            }
+        }
+        this.app.use('/static', express.static(join(__dirname, '../public'), staticOptions));
 
         this.app.listen(this.port, () => {
             console.log(`Started on port ${this.port}`)
