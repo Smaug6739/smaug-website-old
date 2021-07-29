@@ -20,7 +20,7 @@
           <router-link to="/projects/1">Projects</router-link>
         </li>
         <li class="link" @click="close">
-          <router-link to="/resources/1">Resources</router-link>
+          <router-link to="/about">About</router-link>
         </li>
         <li class="link">
           <a

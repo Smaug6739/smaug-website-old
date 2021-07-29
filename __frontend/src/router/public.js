@@ -1,36 +1,34 @@
-import Login from '../views/smaug/login.vue';
-import Project from '../views/view.project.vue';
-import Resource from '../views/view.resource.vue';
-import Projects from '../views/projects.vue';
-import Resources from '../views/resources.vue';
-
 const routes = [
-
 	{
 		path: '/smaug/login',
 		name: 'Smaug Login',
-		component: Login
+		component: () => import('../views/smaug/login.vue')
 	},
 	{
 		path: '/projects/:page',
 		name: 'Projects',
-		component: Projects
+		component: () => import('../views/projects.vue')
 	},
-	{
-		path: '/resources/:page',
-		name: 'Resources',
-		component: Resources
-	},
+	// {
+	// 	path: '/resources/:page',
+	// 	name: 'Resources',
+	// 	component: Resources
+	// },
 	{
 		path: '/project/:projectId',
 		name: 'Project',
-		component: Project
+		component: () => import('../views/view.project.vue')
 	},
 	{
-		path: '/resource/:resourceId',
-		name: 'Resource',
-		component: Resource
+		path: '/about',
+		name: 'About',
+		component: () => import('../views/About.vue')
 	},
+	// {
+	// 	path: '/resource/:resourceId',
+	// 	name: 'Resource',
+	// 	component: Resource
+	// },
 ]
 
 export default routes.map(route => {

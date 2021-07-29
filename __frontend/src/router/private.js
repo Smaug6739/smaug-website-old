@@ -1,36 +1,30 @@
-import Admin from '../views/smaug/admin.vue';
-import PostProject from '../views/smaug/post.project.vue';
-import PostResource from '../views/smaug/post.resource.vue';
-import ViewProject from '../views/smaug/view.project.vue';
-import ViewResource from '../views/smaug/view.resource.vue';
-
 const routes = [
 
 	{
 		path: '/admin',
 		name: 'Admin',
-		component: Admin
+		component: () => import('../views/smaug/admin.vue')
 	},
 	{
 		path: '/admin/projects/:id',
 		name: 'View project',
-		component: ViewProject
+		component: () => import('../views/smaug/view.project.vue')
 	},
-	{
-		path: '/admin/resources/:id',
-		name: 'View resource',
-		component: ViewResource
-	},
-	{
-		path: '/admin/projects/new',
-		name: 'Post project',
-		component: PostProject
-	},
-	{
-		path: '/admin/resources/new',
-		name: 'Post resource',
-		component: PostResource
-	},
+	// {
+	// 	path: '/admin/resources/:id',
+	// 	name: 'View resource',
+	// 	component: import('../views/smaug/view.resource.vue')
+	// },
+	// {
+	// 	path: '/admin/projects/new',
+	// 	name: 'Post project',
+	// 	component: import('../views/smaug/view.resource.vue')
+	// },
+	// {
+	// 	path: '/admin/resources/new',
+	// 	name: 'Post resource',
+	// 	component: import('../views/smaug/post.resource.vue')
+	// },
 ]
 
 export default routes.map(route => {
