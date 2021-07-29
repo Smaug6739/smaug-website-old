@@ -27,14 +27,14 @@ body {
 
 ::-webkit-scrollbar {
   background-color: #262950;
-  height: 8px;
-  width: 14px;
-  border-radius: 10px;
+  height: 7px;
+  width: 12px;
+  border-radius: 9px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #df0b63;
-  border-radius: 10px;
+  border-radius: 9px;
 }
 
 /*# sourceMappingURL=main.css.map */
