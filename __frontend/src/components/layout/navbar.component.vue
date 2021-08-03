@@ -24,7 +24,7 @@
         </li>
         <li class="link">
           <a
-            href="https://github.com/SmaugDev"
+            href="https://github.com/Smaug6739"
             target="__blank"
             class="nav-links"
             @click="close"

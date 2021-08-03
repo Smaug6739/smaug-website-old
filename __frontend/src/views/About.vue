@@ -28,7 +28,7 @@
         </p> 
       <h2 id="stats">Stats</h2> 
         <p>
-          <img src="https://github-readme-stats.vercel.app/api?username=SmaugDev&show_icons=true&theme=radical" alt="Smaug GitHub stats">
+          <img src="https://github-readme-stats.vercel.app/api?username=Smaug6739&show_icons=true&theme=radical" alt="Smaug GitHub stats">
         </p>
   </div>
 </div>
@@ -49,6 +49,7 @@
 }
 img {
   padding: .3%;
+  max-width: 100%;
 }
 h1,
 h2 {

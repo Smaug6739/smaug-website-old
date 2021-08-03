@@ -15,7 +15,7 @@
             Discord
           </Button>
         </a>
-        <a href="https://github.com/SmaugDev" target="__blank">
+        <a href="https://github.com/Smaug6739" target="__blank">
           <Button color="#545aa7" size="large">
             <img
               src="@/assets/github.svg"

@@ -33,7 +33,7 @@
         <h3 class="footer-subtitle">Reseaux</h3>
         <ul class="liste-medias">
           <li>
-            <a href="https://github.com/SmaugDev" target="__blank"
+            <a href="https://github.com/Smaug6739" target="__blank"
               ><img src="@/assets/github.svg" id="footer-img" />Github</a
             >
           </li>
