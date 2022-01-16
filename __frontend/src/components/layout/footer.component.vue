@@ -54,7 +54,7 @@
     </div>
     <div class="footer-bottom">
       <p class="copy">
-        <span> &copy;2019-2021 Smaug - Website</span>
+        <span> &copy;2019-2022 Smaug - Website</span>
       </p>
     </div>
   </footer>
